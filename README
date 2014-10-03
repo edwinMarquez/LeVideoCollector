@@ -26,4 +26,5 @@ In the folder “dataAcces” you can find a file called: “configs.php” that
 
 Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.
 
+You can see how it looks by going into the "screenshots" folder.
  
