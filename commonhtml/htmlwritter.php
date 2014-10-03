@@ -53,34 +53,28 @@
 		echo '<header id="top-bar" class="navbar navbar-fixed-top" role="banner">
         		<div class="container">
                   <div class="navbar-header"></div>
-                  <div class="navbar-collapse collapse">
-                  <div class = "navbar-form navbar-right"> 
-                   <div class= "form-group">
-                   <ul class="nav navbar-nav">
-          			<li class="dropdown">
-          				<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign Up<b class="caret"></b></a>
-          				<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
+                    <div class = "navbar-form navbar-right"> 
+                      <div class= "form-group">
+                        <ul class="nav navbar-nav">
+          			      <li class="dropdown">
+          				    <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign Up<b class="caret"></b></a>
+          				    <div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
                           
-                          <form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
-                              Name: <input id="user_username" style="margin-bottom: 15px;" type="text" name="unusername" size="30" />
-                              Email: <input id="user_useremail" style="margin-bottom: 15px;" type="email" name="unuseremail" size="30" />
-                              Password: <input id="user_userpass" style="margin-bottom: 15px;" type="password" name="unpassword" size="30" />
-                              <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign Up" />
-                          </form>
-
-
-            			</div>
-          			</li>
-          			</ul>
-
-          		   </div>
-
-
+                              <form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
+                                Name: <input id="user_username" style="margin-bottom: 15px;" type="text" name="unusername" size="30" />
+                                Email: <input id="user_useremail" style="margin-bottom: 15px;" type="email" name="unuseremail" size="30" />
+                                Password: <input id="user_userpass" style="margin-bottom: 15px;" type="password" name="unpassword" size="30" />
+                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign Up" />
+                              </form>
+            			    </div>
+          			      </li>
+          			    </ul>
+          		    </div>
                    <div class="form-group">
-                   <ul class="nav navbar-nav">
-         			<li class="dropdown">
-            			<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign In <b class="caret"></b></a>
-            			<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
+                     <ul class="nav navbar-nav">
+         			   <li class="dropdown">
+            			 <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign In <b class="caret"></b></a>
+            			 <div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
               				<form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
   								Email:<input id="user_username" style="margin-bottom: 15px;" type="text" name="acuseremail" size="30" />
   								Password:<input id="user_password" style="margin-bottom: 15px;" type="password" name="acpassword" size="30" />
@@ -88,13 +82,12 @@
   								<label class="string optional" for="user_remember_me"> Remember me</label>
   				  				<input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
 			  				</form>
-            			</div>
-          			</li>
-          		   <ul>
-          		  </div>
+            			 </div>
+          			   </li>
+          		     <ul>
+          		   </div>
 
                  </div>
-                </div>
         	  </div>
 			</header>';
 	}
