@@ -50,7 +50,7 @@
 	*
 	**/
 	function write_login_sigin(){
-		echo '<header class="navbar bs-docs-nav navbar-fixed-top" role="banner">
+		echo '<header id="top-bar" class="navbar navbar-fixed-top" role="banner">
         		<div class="container">
                   <div class="navbar-header"></div>
                   <div class="navbar-collapse collapse">
@@ -58,7 +58,7 @@
                    <div class= "form-group">
                    <ul class="nav navbar-nav">
           			<li class="dropdown">
-          				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign Up<b class="caret"></b></a>
+          				<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign Up<b class="caret"></b></a>
           				<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
                           
                           <form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
@@ -79,7 +79,7 @@
                    <div class="form-group">
                    <ul class="nav navbar-nav">
          			<li class="dropdown">
-            			<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <b class="caret"></b></a>
+            			<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding-top:5px;padding-bottom:0px">Sign In <b class="caret"></b></a>
             			<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
               				<form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
   								Email:<input id="user_username" style="margin-bottom: 15px;" type="text" name="acuseremail" size="30" />
@@ -106,7 +106,7 @@
 	*
 	**/
 	function write_loged_user_msg(){
-		echo '<header class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+		echo '<header id="top-bar" class="navbar navbar-fixed-top" role="banner">
 				
 				<div class="navbar-collapse collapse">
                  <div class = "navbar-form navbar-right"> 

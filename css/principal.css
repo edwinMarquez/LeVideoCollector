@@ -3,6 +3,11 @@ body{
 	min-height: 500px;
 }
 
+#top-bar{
+	background:#FCFCFC;
+	border-bottom: 2px solid rgba(0,0,0,0.05);
+}
+
 #principal{
 	padding: 10px;
 	height: 100%;
@@ -13,6 +18,7 @@ body{
 #title{
 	color: #5a85a1;
 	padding: 10px;
+	margin-top: 40px;
 	text-align: left;
 	background-image: url(../images/logo.png);
 	background-repeat: no-repeat;
