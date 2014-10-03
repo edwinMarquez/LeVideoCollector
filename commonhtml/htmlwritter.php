@@ -50,11 +50,16 @@
 	*
 	**/
 	function write_login_sigin(){
-		echo '<div class="navbar navbar-fixed-top">
-        		<ul class="nav pull-right">
+		echo '<header class="navbar navbar-static-top bs-docs-nav" role="banner">
+        		<div class="container">
+                  <div class="navbar-header"></div>
+                  <div class="navbar-collapse collapse">
+                  <div class = "navbar-form navbar-right"> 
+                   <div class= "form-group">
+                   <ul class="nav navbar-nav">
           			<li class="dropdown">
-          				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign Up<strong class="caret"></strong></a>
-          				<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+          				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign Up<b class="caret"></b></a>
+          				<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
                           
                           <form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
                               Name: <input id="user_username" style="margin-bottom: 15px;" type="text" name="unusername" size="30" />
@@ -66,11 +71,16 @@
 
             			</div>
           			</li>
-          
-         			<li class="dropdown">
-            			<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-            			<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+          			</ul>
 
+          		   </div>
+
+
+                   <div class="form-group">
+                   <ul class="nav navbar-nav">
+         			<li class="dropdown">
+            			<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <b class="caret"></b></a>
+            			<div class="dropdown-menu" style="padding: 10px; padding-bottom: 0px;">
               				<form action="'.htmlentities($_SERVER['PHP_SELF']).'" method="post" accept-charset="UTF-8">
   								Email:<input id="user_username" style="margin-bottom: 15px;" type="text" name="acuseremail" size="30" />
   								Password:<input id="user_password" style="margin-bottom: 15px;" type="password" name="acpassword" size="30" />
@@ -80,8 +90,13 @@
 			  				</form>
             			</div>
           			</li>
-        		</ul>
-			</div>';
+          		   <ul>
+          		  </div>
+
+                 </div>
+                </div>
+        	  </div>
+			</header>';
 	}
 
 	/**
@@ -91,19 +106,26 @@
 	*
 	**/
 	function write_loged_user_msg(){
-		echo '<div class = "navbar navbar-fixed-top">
-				<ul class = "nav pull-right">
-					<li style="padding-top:15px; padding-right:10px">Welcome '.$_SESSION['name'].'</li>
+		echo '<header class="navbar navbar-static-top bs-docs-nav" role="banner">
+				
+				<div class="navbar-collapse collapse">
+                 <div class = "navbar-form navbar-right"> 
+
+				<ul class = "nav navbar-nav">
+
+					<li style="padding-top:15px;padding-bottom:0px;padding-right:10px">Welcome '.$_SESSION['name'].'</li>
 					<li >
-						<a href="upload.php" ><input class="btn btn-primary" style="clear: left; width: 100%; font-size: 13px; margin-top:0px" type="submit" name="upload" value="Upload" /></a>
+						<a href="upload.php" style="padding-top:5px;padding-bottom:0px"><input class="btn btn-primary" style="clear: left; width: 100%; font-size: 13px; margin-top:0px" type="submit" name="upload" value="Upload" /></a>
 					</li>
 					<li >
-						<a href="'.htmlentities($_SERVER['PHP_SELF']).'?logout=true" style="margin-right:10px" ><input class="btn btn-primary" style="clear: left; width: 100%; font-size: 13px; margin-top:0px" type="submit" name="logout" value="Log Out" /></a>
+						<a href="'.htmlentities($_SERVER['PHP_SELF']).'?logout=true" style="margin-right:10px;padding-top:5;padding-bottom:0px" ><input class="btn btn-primary" style="clear: left; width: 100%; font-size: 13px; margin-top:0px" type="submit" name="logout" value="Log Out" /></a>
 					</li>
 				</ul>
-			</div>';
+			   </div>
+			  </div>
+			</header>';
 
-	} 
+	}  
 
 
 

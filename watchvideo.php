@@ -22,8 +22,8 @@
 	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
 
 	<!--Your good friend bootstrap-->
-    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
-    <script type="text/javascript" src="./bootstrap/js/bootstrap.js"> </script>
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.2.0-dist/css/bootstrap.css">
+    <script type="text/javascript" src="./bootstrap-3.2.0-dist/js/bootstrap.js"> </script>
 
 
     <link rel="stylesheet" type="text/css" href="./css/principal.css">

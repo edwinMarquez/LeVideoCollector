@@ -48,8 +48,8 @@
 <head>
 	<title>Video colector, Upload your video</title>
 	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
-	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
-	<script type="text/javascript" src="./bootstrap/js/bootstrap.js"> </script>
+	<link rel="stylesheet" type="text/css" href="./bootstrap-3.2.0-dist/css/bootstrap.css">
+    <script type="text/javascript" src="./bootstrap-3.2.0-dist/js/bootstrap.js"> </script>
 	<link rel="stylesheet" type="text/css" href="./css/upload.css">
 	<?php if(isset($_SESSION['usrid'])) echo '<script type="text/javascript" src="javascript/upload.js"></script>'; ?>
 
