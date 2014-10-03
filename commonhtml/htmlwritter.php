@@ -50,7 +50,7 @@
 	*
 	**/
 	function write_login_sigin(){
-		echo '<header class="navbar navbar-static-top bs-docs-nav" role="banner">
+		echo '<header class="navbar bs-docs-nav navbar-fixed-top" role="banner">
         		<div class="container">
                   <div class="navbar-header"></div>
                   <div class="navbar-collapse collapse">
@@ -106,7 +106,7 @@
 	*
 	**/
 	function write_loged_user_msg(){
-		echo '<header class="navbar navbar-static-top bs-docs-nav" role="banner">
+		echo '<header class="navbar navbar-fixed-top bs-docs-nav" role="banner">
 				
 				<div class="navbar-collapse collapse">
                  <div class = "navbar-form navbar-right"> 
