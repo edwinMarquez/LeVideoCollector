@@ -1,0 +1,145 @@
+body{
+	min-width: 800px;
+	min-height: 500px;
+}
+
+#principal{
+	padding: 10px;
+	height: 100%;
+	min-height: 600px;
+	
+}
+
+#title{
+	color: #5a85a1;
+	padding: 10px;
+	text-align: left;
+	background-image: url(../images/logo.png);
+	background-repeat: no-repeat;
+	background-size: 20% 100%;
+	background-position: left top;
+}
+
+#title a{
+	color: #5a85a1;
+	text-decoration: none;
+}
+
+
+#search{
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+
+#content{
+
+}
+
+
+#menu {
+	position: relative;
+	text-align: center;
+	width: 15%;
+	float: left;
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	padding-left: 0px;
+}
+
+#menu ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#menu ul li{
+	padding-top: 30px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
+#menu ul li:last-child{
+	border-none;
+}
+
+#menu ul a{
+	color: grey;
+	text-decoration: none;
+	display:block;
+}
+
+
+#menu ul a li:hover {
+	font-size: 22px;
+	color: black;
+}
+
+#videoscontainer{
+	float: right;
+	position: relative;
+	width: 84%;
+	text-align: center;
+	padding-bottom: 20px;
+	min-height: 500px;
+}
+
+#bestvideo{
+	width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#bottompanel{
+	font-size: 13px;
+	padding: 10px;
+	width: 80%
+}
+
+#paginacion{
+	display: block;
+	width: 100%;
+	float: right;
+}
+
+#list{
+	position: relative;
+	float: left;
+}
+
+
+.btn-custom {
+  background-color: hsl(167, 3%, 77%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f1f2f2", endColorstr="#c2c6c5");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#f1f2f2), to(#c2c6c5));
+  background-image: -moz-linear-gradient(top, #f1f2f2, #c2c6c5);
+  background-image: -ms-linear-gradient(top, #f1f2f2, #c2c6c5);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f1f2f2), color-stop(100%, #c2c6c5));
+  background-image: -webkit-linear-gradient(top, #f1f2f2, #c2c6c5);
+  background-image: -o-linear-gradient(top, #f1f2f2, #c2c6c5);
+  background-image: linear-gradient(#f1f2f2, #c2c6c5);
+  border-color: #c2c6c5 #c2c6c5 hsl(167, 3%, 72.5%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.29);
+  -webkit-font-smoothing: antialiased;
+  border-radius: 6px;
+}
+
+#txtinput-custom{
+	margin-bottom: 0px;
+	width: 500px;
+}
+
+.video-prev{
+	margin: 10px;
+	float: left;
+}
+
+.video-prev img{
+	width: 160px;
+	height: 120px;
+}
+
+.video-prev p{
+	width:160px;
+}

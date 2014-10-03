@@ -1,0 +1,29 @@
+#bar{
+	border:solid 1px #000;
+	height: 19px;
+	width: 320px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#bar_color{
+	background-color: #0099cc;
+	height: 19px;
+	width: 0px;
+	float:left;
+}
+
+#uploadcontrols{
+	float: right;
+	position: relative;
+	width: 84%;
+}
+
+#left_upcontrols{
+	float:left;
+	margin-right: 15px;
+}
+
+#right_upcontrols{
+	float: left;
+}
