@@ -1,0 +1,29 @@
+Edwin Samuel Márquez Hernández. @EdwinMrqz
+
+Video Colector.
+************************************
+Hello!, I created this page, in first place to learn and experiment, second because it is fun to do that!. 
+************************************
+
+Requirements: 
+
+-php , (and all it requires to work with, the project is fully written in php).
+
+-mysql (at least)
+
+- ffmpeg library installed and working. (This library is used to take the thumbnails of the videos uploaded. I'm taking two of different sizes by now, xampp user beware you may have to update some libraries manually to make it work).
+
+-videojs (i've included a folder with the videojs library , i'm using it to show the videos, you can check their website http://videojs.com/ to learn more).
+
+
+-----
+Inner working: 
+
+This website uses a database to store information about the users, videos and comments(still not in use) 
+the script and an image of the structure is included in the folder “databasecreation”.
+
+In the folder “dataAcces” you can find a file called: “configs.php” that contains configuration values like the password of your database, user name of the database, etc. there are comments included in the file. 
+
+Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.
+
+ 
