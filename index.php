@@ -10,6 +10,29 @@
 	//check if the user logs in
 	include './commonphp/checklogin.php';
 
+    /**
+    *This function writes an element in the list of videos
+    *that is displayed
+    * @param $id the id of the video
+    * @param $name the name of the video
+    * @param $puntuacion the puntuation of the video
+    *
+    **/
+	function writelist($id,$name,$puntuacion){
+	  //puntuation still not in use
+	  $name = (strlen($name)>32)?substr($name,0,29)."...":$name;
+      echo '<a href=./watchvideo.php?watch='.$id.'>';
+	  echo '<div class="col-sm-6 col-md-4">';
+      echo '<div class="Thumbnail">'; 
+	  echo '<img src="./thumbnail/little/'.$id.'.png" >';
+      echo '<div class="caption">';
+	  echo '<p>'.$name.'</p>';
+      echo '</div>';
+      echo '</div>';
+	  echo '</div>';
+	  echo '</a>';
+	}
+
 
 ?>
 
@@ -64,20 +87,15 @@
 				write_menu(); //from ./commonhtml/htmlwritter.php
 			?>
 			<div id="videoscontainer">
-			  <div id="list">
+			  <div class = "row">
 			  <?php
 			    //if you havent clicked the left panel
 			    $page = isset($_GET['page'])?$_GET['page']:0;
 			    if(isset($_GET['search'])){
 			          //getting the page to show
 			          if($bystring = searchString($_GET['search'], $page)){
-			  	         while($row = mysqli_fetch_array($bystring)){
-			  	 	       echo '<a href=./watchvideo.php?watch='.$row['idVideo'].'>';
-			  	 	       echo '<div id = "'.$row['idVideo'].'" class="video-prev">';
-			  	 	       echo '<img src="./thumbnail/little/'.$row['idVideo'].'.png" >';
-			  	 	       echo '<p>'.$row['VideoName'].'</p>';
-			  	 	       echo '</div>';
-			  	 	       echo '</a>';
+			  	         while($row = mysqli_fetch_array($bystring)){ 
+			  	 	       writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
 			  	 	      }
 			  	 	  
 			  	       }
@@ -87,24 +105,14 @@
 			    	if($_GET['sort'] == 'recent'){
 			    		if($moreRecent = searchMoreRecent($page)){
 			    		  while($row = mysqli_fetch_array($moreRecent)){
-			    		  	echo '<a href=./watchvideo.php?watch='.$row['idVideo'].'>';
-			  	 	        echo '<div id = "'.$row['idVideo'].'" class="video-prev">';
-			  	 	        echo '<img src="./thumbnail/little/'.$row['idVideo'].'.png" >';
-			  	 	        echo '<p>'.$row['VideoName'].'</p>';
-			  	 	        echo '</div>';
-			  	 	        echo '</a>';
+			    		   writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
 			    		  }
 			    		}
 			    	}elseif($_GET['sort']=='bestq'){
 			    		//showing the best rated
 			    		if($bestRated = searchBestRated($page)){
 			    		  while($row = mysqli_fetch_array($bestRated)){
-			    		  	echo '<a href=./watchvideo.php?watch='.$row['idVideo'].'>';
-			  	 	        echo '<div id = "'.$row['idVideo'].'" class="video-prev">';
-			  	 	        echo '<img src="./thumbnail/little/'.$row['idVideo'].'.png" >';
-			  	 	        echo '<p>'.$row['VideoName'].'</p>';
-			  	 	        echo '</div>';
-			  	 	        echo '</a>';
+			    		   writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
 			    		  }
 			    		}
 
@@ -114,16 +122,9 @@
 
 			    	if($allvideos = allvideos($page)){
 			  	        while($row = mysqli_fetch_array($allvideos)){
-			  	 	       echo '<a href=./watchvideo.php?watch='.$row['idVideo'].'>';
-			  	 	       echo '<div id = "'.$row['idVideo'].'" class="video-prev">';
-			  	 	       echo '<img src="./thumbnail/little/'.$row['idVideo'].'.png" >';
-			  	 	       echo '<p>'.$row['VideoName'].'</p>';
-			  	 	       echo '</div>';
-			  	 	       echo '</a>';
+			  	           writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
 			  	 	    }
 			  	 	  
-			  	    }else{
-			  	 	   echo "We have no videos yet , to show.. stay tuned";
 			  	    }
 
 			    }
