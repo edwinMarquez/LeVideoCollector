@@ -139,26 +139,25 @@
 			   	  echo '<ul class="pager">';
 			   	  if($page != 0) echo '<li class="previous"><a href="index.php?search='.$_GET['search'].'&page='.($page - 1).'">&larr; Previous </a></li>';
 			   	  else echo '<li class="previous disabled"><a href="#">&larr; Previous </a></li>';
-			      echo '<div id="txtpag"> Page '.($page + 1).' of '.$totalvid;
+			      echo 'Page '.($page + 1).' of '.$totalvid;
 			      if($page < ($totalvid - 1)) echo '<li class="next"><a href="index.php?search='.$_GET['search'].'&page='.($page + 1).'"> Next &rarr;</a></li>';
 			      else echo '<li class="next disabled"><a href="#">Next &rarr;</a></li>';
 			   }elseif(isset($_GET['sort'])){
 			   	  echo '<ul class="pager">';
                   if($page != 0) echo '<li class="previous"><a href="index.php?sort='.$_GET['sort'].'&page='.($page - 1).'">&larr; Previous </a></li>';
                   else echo '<li class="previous disabled"><a href="#">&larr; Previous </a></li>';
-			      echo '<div id="txtpag"> Page '.($page + 1).' of '.$totalvid;
+			      echo 'Page '.($page + 1).' of '.$totalvid;
 			      if($page < ($totalvid - 1)) echo '<li class="next"><a href="index.php?sort='.$_GET['sort'].'&page='.($page + 1).'"> Next &rarr;</a></li>';
 			      else echo '<li class="next disabled"><a href="#">Next &rarr;</a></li>';
 			   }else{
 			   	  echo '<ul class="pager">';
 			   	  if($page != 0) echo '<li class="previous"><a href="index.php?page='.($page - 1).'">&larr; Previous </a></li>';
 			   	  else echo '<li class="previous disabled"><a href="#">&larr; Previous </a></li>';
-			   	  echo '<div id="txtpag"> Page '.($page + 1).' of '.$totalvid;
+			   	  echo 'Page '.($page + 1).' of '.$totalvid;
 			      if($page < ($totalvid - 1)) echo '<li class="next"><a href="index.php?page='.($page + 1).'"> Next &rarr;</a></li>';
 			      else echo '<li class="next disabled"><a href="#">Next &rarr;</a></li>';
 			   }
 			   echo '</ul>';
-			   echo '</div>';
 			   echo '</div>';
 			  ?>
 			</div>
