@@ -38,7 +38,7 @@
 	**/
 
 	function write_bottompanel(){
-		echo '<div id="bottompanel">
+		echo '<div id="bottompanel" class="panel-footer">
 				we keep the right to delete any video<br>
 				all content uploaded is responsability of the uploader<br>
 			  </div>';

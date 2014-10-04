@@ -68,7 +68,7 @@
     	write_login_sigin(); //from ./commonhtml/htmlwritter.php	
     }
     ?>
-    <div id="principal">
+    <div id="principal" class="panel panel-default">
 
     	<?php
 			write_title(); //from ./commonhtml/htmlwritter.php
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 
-        <div id= "content">
+        <div id= "content" class="panel-body">
 			<?php
 				write_menu(); //from ./commonhtml/htmlwritter.php
 		     

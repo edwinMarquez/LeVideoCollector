@@ -55,7 +55,7 @@
     ?>
 
 
-	<div id="principal">	
+	<div id="principal" class="panel panel-default">	
 		<?php
 			write_title();
 		?>
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 
-		<div id= "content">
+		<div id= "content" class="panel-body">
 			<?php
 				write_menu();
 			?>
