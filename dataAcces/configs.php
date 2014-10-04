@@ -7,7 +7,7 @@ $db_pwd = '';
 $db_name = 'videocolector';
 
 //display parameters
-$numofVideos = 6; //the number of video thumbnails to show on every page
+$numofVideos = 9; //the number of video thumbnails to show on every page
  
 //file upload parameters
 $max_file_size_bytes = 943718400;

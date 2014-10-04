@@ -109,13 +109,6 @@ body{
 	float: right;
 }
 
-/**
-#list{
-	position: relative;
-	float: left;
-}**/
-
-
 .btn-custom {
   background-color: hsl(167, 3%, 77%) !important;
   background-repeat: repeat-x;
@@ -138,18 +131,3 @@ body{
 	margin-bottom: 0px;
 	width: 500px;
 }
-
-/**
-.video-prev{
-	margin: 10px;
-	float: left;
-} 
-
-.video-prev img{
-	width: 160px;
-	height: 120px;
-}
-
-.video-prev p{
-	width:160px;
-} **/

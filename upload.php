@@ -15,6 +15,7 @@
 		  if(isset($_FILES['upvideo']) && isset($_POST['videotitle']) && isset($_POST['videodescription']) && $_POST['videotitle'] != ''){
 			if($_FILES['upvideo']['size'] > $max_file_size_bytes){
 		      $alert = 'file to big';
+		      $type = 'alert-danger';
 			}else{
 			  $ext = pathinfo($_FILES['upvideo']['name'], PATHINFO_EXTENSION);
 			  $valid_formats = array('ogg','mp4','webm');
@@ -27,14 +28,17 @@
 					shell_exec('ffmpeg -i ./thumbnail/large/'.$uniq.'.png -s 160x120 ./thumbnail/little/'.$uniq.'.png -y 2>&1');
 					insertvideo($uniq,$_POST['videotitle'],$_POST['videodescription'],$_SESSION['usrid'],$ext,date('Y/m/d'));
 					$alert = "Your file has been uploaded";
+					$type = 'alert-success';
 				} 
 
 			  }else{
 				$alert = 'no compatible format';
+				$type = 'alert-danger';
 			  }
 	        }
 	      }else{
 	      	$alert = 'The video was not uploaded';
+	      	$type = 'alert-danger';
 	      	if($_POST['videotitle'] = ''){
 	      		$alert = " you have to specify a title";
 	      	}
@@ -89,15 +93,21 @@
 	              <div id="left_upcontrols">
 	                <div id="video_prev"></div>
 	                <div id="bar" style="display:none">
-	                <div id="bar_color"></div>
-                    <div id="status">0%</div ></div>
+	                 <div class="progress" style="margin-bottom:0px;">
+                       <div class = "progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                         0%
+                       </div>
+                     </div>
+	                </div>
+
+                    
 
 	                <br>
 	                <?php
 	            	  if(isset($alert)){
-			            echo '<p id="alert" style="color:red">'.$alert.'</p>';
+			            echo '<div id="alert" class="alert '.$type.'">'.$alert.'</div>';
 			          }else{
-                        echo '<p id="alert" style="color:red"></p>';
+                        echo '<div id="alert"></div>';
 			          }
 
 	                  if(isset($_SESSION['usrid'])){
