@@ -41,11 +41,13 @@
 	      	$type = 'alert-danger';
 	      	if($_POST['videotitle'] = ''){
 	      		$alert = " you have to specify a title";
+	      		$type = 'alert-danger';
 	      	}
 	      }
 		}
 	}else{
 		$alert = 'Wait!, you need to Sigin just before you upload a video, we\'ll wait';
+		$type = 'alert-danger';
 	}
 ?>
 <html>
