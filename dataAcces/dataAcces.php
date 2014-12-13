@@ -13,21 +13,30 @@
 	/**
 	* this function creates a conection to the database
 	* @param none
-	* @return mysqli
+	* @return pg_conection
 	*
 	* @global string $db_host this variable has the name of the database host comes from configs.php
 	* @global string $db_usr contains the user name for the database comes from configs.php
 	* @global string $db_pwd contains the password for the database user comes form configs.php
 	* @global string $db_name contains the name of the databasem comer from configs.php
 	*/ 
-	function conBase(){
+	function createConection(){
 
 		global $db_host;
 		global $db_usr;
 		global $db_pwd;
 		global $db_name;
 
-		return new mysqli($db_host, $db_usr, $db_pwd, $db_name);
+		return pg_connect('user='.$db_usr.' password='.$db_pwd.' host= '.$db_host.' dbname = '.$db_name.'');
+	}
+
+    /**
+    *  this function closes an created conection
+    *  @param $link an postgre conection to be closed
+    *
+    **/
+	function closeConection($link){
+      pg_close($link);
 	}
 
 	/**
@@ -35,7 +44,7 @@
 	*
 	* @param $usremail the email of the user in the database
 	* @param $pass the password of the user
-	* @return mysqli_result or false in failure
+	* @return pg_result or false in failure
 	*
 	* @var realusemail the scaped string for the username
 	* @var realpass  the scaped string for the password
@@ -45,13 +54,16 @@
 	**/
 	function sign_in($usemail, $pass){
 		//in case a distracted user happens to visit
-		$realusemail = mysql_real_escape_string($usemail);
-		$realpass = mysql_real_escape_string($pass);
+		$realusemail = pg_escape_string($usemail);
+		echo "$realusemail<br>";
+		$realpass = pg_escape_string($pass);
 		global $salt;
 		$thepassword = md5($realpass.$salt);
-		$query = 'SELECT idUsuario, UserName, avatar FROM Usuario WHERE UserEmail = "'.$realusemail.'" and pass = "'.$thepassword.'"';
-		$link = conBase();
-		$result = mysqli_query($link, $query);
+		echo "$thepassword<br>";
+		$query = "SELECT idUsuario, UserName, avatar FROM Usuario WHERE UserEmail = '".$realusemail."' and pass = '".$thepassword."';";
+		$link = createConection();
+		$result = pg_exec($link, $query);
+		closeConection($link);
 		return $result;
 	}
 
@@ -61,18 +73,20 @@
 	* @param $usermail the email of the user
 	* @param $pass the password of the user
 	*
-	* @return mysqli_result
+	* @return pg_result
 	**/
 	function sign_up($username, $usermail, $pass){
-		$link = conBase();
-		$realname = mysql_real_escape_string($username);
-		$realmail = mysql_real_escape_string($usermail);
-		$realpass = mysql_real_escape_string($pass);
+		$realname = pg_escape_string($username);
+		$realmail = pg_escape_string($usermail);
+		$realpass = pg_escape_string($pass);
 		global $salt;
 		$thepassword = md5($realpass.$salt);
 		$idUsuario = lastid_user()+1;
-		$query = 'INSERT INTO Usuario (`idUsuario`,`UserName`,`UserEmail`,`pass`) values ("'.$idUsuario.'", "'.$realname.'", "'.$realmail.'", "'.$thepassword.'")'; 
-		return mysqli_query($link,$query);
+		$query = "INSERT INTO Usuario (idUsuario,UserName,UserEmail,pass) values ('".$idUsuario."', '".$realname."', '".$realmail."', '".$thepassword."');"; 
+		$link = createConection();
+		$result = pg_exec($link, $query);
+		closeConection($link);
+		return $result;
 	}
 
 	/**
@@ -80,14 +94,16 @@
 	*	
 	* @param $videoid recives the id of the video to look for
 	*
-	* @return mysqli_result or false in failure
+	* @return pg_result or false in failure
 	*
 	**/
 	function getdatavideo($videoid){
-		$id = mysql_real_escape_string($videoid);
-		$query = 'SELECT videoName, Puntuacion, Votes, Description, idUsuario, VideoType FROM video WHERE idVideo = "'.$id.'"';
-		$link = conBase();
-		return mysqli_query($link, $query);
+		$id = pg_escape_string($videoid);
+		$query = "SELECT videoName, Puntuacion, Votes, Description, idUsuario, VideoType FROM video WHERE idVideo = '".$id."';";
+		$link = createConection();
+		$result = pg_exec($link, $query);
+		closeConection($link);
+		return $result;
 	}
 
 	/**
@@ -99,21 +115,25 @@
 	*
 	**/
 	function lastid(){
-		$query = 'SELECT idVideo FROM video Order By `idVideo` Desc Limit 1';
-		$link = conBase();
-		if($row = mysqli_fetch_array(mysqli_query($link,$query))){
-			return $row['idVideo'];
+		$query = 'SELECT idVideo FROM video Order By idVideo Desc Limit 1';
+		$link = createConection();
+		if($row = pg_fetch_array(pg_exec($link,$query))){
+			closeConection($link);
+			return $row['idvideo'];
 		}else{
+			closeConection($link);
 			return 0;
 		}
 	}
 
 	function lastid_user(){
-		$query = 'SELECT idUsuario FROM Usuario Order By `idUsuario` Desc Limit 1';
-		$link = conBase();
-		if($row = mysqli_fetch_array(mysqli_query($link,$query))){
-			return $row['idUsuario'];
+		$query = 'SELECT idUsuario FROM Usuario Order By idUsuario Desc Limit 1';
+		$link = createConection();
+		if($row = pg_fetch_array(pg_exec($link,$query))){
+			closeConection($link);
+			return $row['idusuario'];
 		}else{
+			closeConection($link);
 			return 0;
 		}
 	}
@@ -127,10 +147,12 @@
 	**/
 	function countallvideos(){
 		$query = 'SELECT COUNT(*) as cuenta FROM video';
-		$link = conBase();
-		if($row = mysqli_fetch_array(mysqli_query($link,$query))){
+		$link = createConection();
+		if($row = pg_fetch_array(pg_exec($link,$query))){
+			closeConection($link);
 			return $row['cuenta'];
 		}else{
+			closeConection($link);
 			return 0;
 		}
 	}
@@ -143,15 +165,17 @@
 	* 
 	* @global $numofVideos comes from configs.php this is the number of videos to show in every page
 	*
-	* @return mysqli_result 
+	* @return pg_result 
 	* 
 	**/
 	function allvideos($pagenum){
 		global $numofVideos;
-		$realpagenum = mysql_real_escape_string($pagenum);
-		$link = conBase();
-		$query = 'SELECT idVideo, VideoName, Puntuacion FROM video Order By `VideoName` Asc Limit '.$realpagenum * $numofVideos.', '.$numofVideos;
-		return mysqli_query($link,$query);
+		$realpagenum = pg_escape_string($pagenum);
+		$link = createConection();
+		$query = 'SELECT idVideo, VideoName, Puntuacion FROM video Order By VideoName Asc Limit '.$numofVideos.' OFFSET '.$realpagenum * $numofVideos.';';
+		$result = pg_exec($link,$query);
+        closeConection($link);
+		return $result;
 	}
 
 
@@ -171,11 +195,13 @@
 	*
 	**/
 	function insertvideo($idVideo,$VideoName,$Description,$idUsuario,$VideoType,$UpDate){
-		$link = conBase();
-		$realVideoName = mysql_real_escape_string($VideoName);
-		$realDescription = mysql_real_escape_string($Description);
-		$query = 'INSERT into video (`idVideo`, `VideoName`,`puntuacion`, `Votes`, `Description`,`idUsuario`,`VideoType`,`warnings`,`UpDate`) values ("'.$idVideo.'","'.$realVideoName.'",0,0,"'.$realDescription.'","'.$idUsuario.'","'.$VideoType.'",0,"'.$UpDate.'")';
-		return mysqli_query($link,$query);
+		$link = createConection();
+		$realVideoName = pg_escape_string($VideoName);
+		$realDescription = pg_escape_string($Description);
+		$query = 'INSERT into video (idVideo, VideoName,puntuacion, Votes, Description,idUsuario,VideoType,warnings,UpDate) values (\''.$idVideo.'\',\''.$realVideoName.'\',0,0,\''.$realDescription.'\',\''.$idUsuario.'\',\''.$VideoType.'\',0,\''.$UpDate.'\')';
+		$result = pg_exec($link,$query);
+        closeConection($link);
+		return $result;
 	}
 
     /**
@@ -183,15 +209,17 @@
     *
     *@param $page the page to show based on the param numofVideos
     *
-    *@return mysqli_result
+    *@return pg_result
     *
     **/
     function searchMoreRecent($page){
     	global $numofVideos;
-    	$realpage = mysql_real_escape_string($page);
-    	$link = conBase();
-        $query = 'SELECT * FROM video ORDER BY `UpDate` Desc Limit '.$realpage * $numofVideos.','.$numofVideos;
-        return mysqli_query($link,$query);
+    	$realpage = pg_escape_string($page);
+    	$link = createConection();
+        $query = 'SELECT * FROM video ORDER BY UpDate Desc Limit '.$numofVideos.' OFFSET '.$realpage * $numofVideos;
+        $result = pg_exec($link,$query);
+        closeConection($link);
+        return $result;
     }
 
     /**
@@ -204,10 +232,13 @@
     **/
     function searchBestRated($page){
     	global $numofVideos;
-    	$realpage = mysql_real_escape_string($page);
-    	$link = conBase();
-        $query = 'SELECT * FROM `video` ORDER BY `Puntuacion` Desc Limit '.$realpage*$numofVideos.','.$numofVideos;
-        return mysqli_query($link,$query);
+    	$realpage = pg_escape_string($page);
+    	$link = createConection();
+        $query = 'SELECT * FROM video ORDER BY Puntuacion Desc Limit '.$numofVideos.' OFFSET '.$realpage*$numofVideos;
+        $result = pg_exec($link,$query);
+        closeConection($link);
+        return $result;
+
     }
 
     /**
@@ -227,15 +258,17 @@
     *@param $string the string to search by
     *@param $page The page to display
     *
-    *@return mysqli_result
+    *@return pg_result
     **/
     function searchString($string, $page){
     	global $numofVideos;
-    	$realstring = mysql_real_escape_string($string);
-    	$realpage = mysql_real_escape_string($page);
-    	$link = conBase();
-    	$query = 'SELECT * FROM video where VideoName like "%'.$realstring.'%" ORDER BY VideoName Limit '.$realpage*$numofVideos.','.$numofVideos;
-    	return mysqli_query($link,$query);
+    	$realstring = pg_escape_string($string);
+    	$realpage = pg_escape_string($page);
+    	$link = createConection();
+    	$query = "SELECT * FROM video where VideoName like '%".$realstring."%' ORDER BY VideoName Limit ".$numofVideos." OFFSET ".$realpage*$numofVideos.";";
+    	$result = pg_exec($link,$query);
+    	closeConection($link);
+    	return $result;
     }
     /**
     * Counts the videos for a string search
@@ -243,12 +276,14 @@
     * @return integer
     **/
     function countallvideos_searchstring($string){
-    	$realstring = mysql_real_escape_string($string);
-    	$query = 'SELECT COUNT(*) as cuenta FROM video where VideoName like "'.$realstring.'"';
-		$link = conBase();
-		if($row = mysqli_fetch_array(mysqli_query($link,$query))){
+    	$realstring = pg_escape_string($string);
+    	$query = "SELECT COUNT(*) as cuenta FROM video where VideoName like '".$realstring."';";
+		$link = createConection();
+		if($row = pg_fetch_array(pg_exec($link,$query))){
+			closeConection($link);
 			return $row['cuenta'];
 		}else{
+			closeConection($link);
 			return 0;
 		}
     }

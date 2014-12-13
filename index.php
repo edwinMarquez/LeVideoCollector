@@ -94,8 +94,8 @@
 			    if(isset($_GET['search'])){
 			          //getting the page to show
 			          if($bystring = searchString($_GET['search'], $page)){
-			  	         while($row = mysqli_fetch_array($bystring)){ 
-			  	 	       writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
+			  	         while($row = pg_fetch_array($bystring)){ 
+			  	 	       writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
 			  	 	      }
 			  	 	  
 			  	       }
@@ -104,15 +104,15 @@
 			    	//its been sorted by most recent
 			    	if($_GET['sort'] == 'recent'){
 			    		if($moreRecent = searchMoreRecent($page)){
-			    		  while($row = mysqli_fetch_array($moreRecent)){
-			    		   writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
+			    		  while($row = pg_fetch_array($moreRecent)){
+			    		   writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
 			    		  }
 			    		}
 			    	}elseif($_GET['sort']=='bestq'){
 			    		//showing the best rated
 			    		if($bestRated = searchBestRated($page)){
-			    		  while($row = mysqli_fetch_array($bestRated)){
-			    		   writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
+			    		  while($row = pg_fetch_array($bestRated)){
+			    		   writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
 			    		  }
 			    		}
 
@@ -121,9 +121,16 @@
 			    }else{
 
 			    	if($allvideos = allvideos($page)){
-			  	        while($row = mysqli_fetch_array($allvideos)){
-			  	           writelist($row['idVideo'],$row['VideoName'],$row['Puntuacion']);
+			    	                        
+			  	        while($row = pg_fetch_array($allvideos)){
+			  	           writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
 			  	 	    }
+			  	        //$numrows = pg_num_rows($allvideos);
+			  	        //for($i = 0; $i < $numrows; $i++){
+			  	        //	$row = pg_fetch_array($allvideos, $i);
+			  	        //	writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
+			  	        //}
+
 			  	 	  
 			  	    }
 

@@ -78,7 +78,7 @@
 				<?php
 					$data_video = getdatavideo($_GET['watch']);
 
-					if($row = mysqli_fetch_array($data_video)){
+					if($row = pg_fetch_array($data_video)){
 						echo '<div id="bestvideo">
 							<video id="thebestvideo" class="video-js vjs-default-skin vjs-big-play-centered"
 								controls preload="auto" width="640" height="364"
@@ -86,14 +86,14 @@
 								data-setup="{}"
 							>
 
-							<source src="./video/'.$_GET['watch'].'.'.$row['VideoType'].'" type="video/'.$row['VideoType'].'"/>
+							<source src="./video/'.$_GET['watch'].'.'.$row['videotype'].'" type="video/'.$row['videotype'].'"/>
 							<p class="vjs-no-js">To view this video please enable javaScript</p>
 							</video>
 						</div>
-						<h2>'.$row['videoName'].'</h2>';
+						<h2>'.$row['videoname'].'</h2>';
 						echo '<br>';
 						echo '<div id= descripcion width="640">
-                                '.$row['Description'].'
+                                '.$row['description'].'
 						      </div>';
 					}
 
