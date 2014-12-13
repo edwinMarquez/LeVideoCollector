@@ -3,8 +3,8 @@
 $url = parse_url(getenv('DATABASE_URL'));
 //database parameters
 $db_host = $url["host"];
-$db_usr = $url["user"]
-$db_pwd = $url["pass"]
+$db_usr = $url["user"];
+$db_pwd = $url["pass"];
 $db_name = ltrim($dbopts["path"],'/');
 $db_port = $url["port"];
 
