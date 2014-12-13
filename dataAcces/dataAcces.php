@@ -27,7 +27,7 @@
 		global $db_pwd;
 		global $db_name;
 
-		return pg_connect('user='.$db_usr.' password='.$db_pwd.' host= '.$db_host.' dbname = '.$db_name.'');
+		return pg_connect('user='.$db_usr.' password='.$db_pwd.' host= '.$db_host.' dbname = '.$db_name.'port = '.$db_port.';');
 	}
 
     /**
