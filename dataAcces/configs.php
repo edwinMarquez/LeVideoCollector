@@ -1,6 +1,6 @@
 <?php
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$url = parse_url(getenv('DATABASE_URL'));
 //database parameters
 $db_host = $url["host"];
 $db_usr = $url["user"]
