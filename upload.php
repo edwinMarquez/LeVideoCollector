@@ -24,7 +24,7 @@
 				$uniq = lastid() + 1;//other options sha1_file($_FILES['upvideo']['tmp_name']) or uniqid('',true) for a 23 char long
 				$uniq_file_name = $uniq.".".$ext;
 			    if(move_uploaded_file($_FILES['upvideo']['tmp_name'], $dir.$uniq_file_name)){
-					shell_exec('./ffmpeg -i "./video/'.$uniq_file_name.'" -ss 00:00:10 "./thumbnail/large/'.$uniq.'.png" -y 2>&1'); //if you got an error try echo(ing) this
+					shell_exec('./ffmpeg -i "./video/'.$uniq_file_name.'" -ss 00:00:01 "./thumbnail/large/'.$uniq.'.png" -y 2>&1'); //if you got an error try echo(ing) this
 					shell_exec('./ffmpeg -i ./thumbnail/large/'.$uniq.'.png -s 160x120 ./thumbnail/little/'.$uniq.'.png -y 2>&1');
 					insertvideo($uniq,$_POST['videotitle'],$_POST['videodescription'],$_SESSION['usrid'],$ext,date('Y/m/d'));
 					$alert = "Your file has been uploaded";
