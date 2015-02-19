@@ -7,7 +7,7 @@ CREATE TABLE coments (
   coment text NOT NULL,
   idUsuario integer NOT NULL unique,
   idVideo integer NOT NULL unique,
-  warnings integer NOT NULL,
+  warnings integer NULL,
   PRIMARY KEY (idComent)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE Usuario (
   idUsuario SERIAL NOT NULL,
   UserName text NOT NULL,
   UserEmail text NOT NULL,
-  avatar text NOT NULL,
+  avatar text NULL,
   pass text NOT NULL,
   PRIMARY KEY (idUsuario)
 );
@@ -30,7 +30,7 @@ CREATE TABLE video (
   Puntuacion integer NOT NULL,
   Votes integer NOT NULL,
   Description text NOT NULL,
-  idUsuario integer NOT NULL unique,
+  idUsuario integer NOT NULL,
   VideoType text NOT NULL,
   warnings integer NOT NULL,
   UpDate date NOT NULL,

@@ -1,2 +1,7 @@
-
 vendor
+video/*.*
+video/mp4/*.*
+video/ogv/*.*
+video/webm/*.*
+thumbnail/large/*.*
+thumbnail/little/*.*

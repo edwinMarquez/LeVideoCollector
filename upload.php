@@ -1,7 +1,7 @@
 <?php
 	session_start();
-
-
+    date_default_timezone_set("America/New_York");
+    
 
 	include './dataAcces/dataAcces.php';
 	include './dataAcces/configs.php';
@@ -9,27 +9,34 @@
 	include './commonphp/checklogin.php';
 
 	global $max_file_size_bytes;
+	$dirffmpeg = './extras/ffmpeg';
+	$dirscript = './extras/convertvid_scripts.sh';
 
 	if(isset($_SESSION['usrid'])){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		  if(isset($_FILES['upvideo']) && isset($_POST['videotitle']) && isset($_POST['videodescription']) && $_POST['videotitle'] != ''){
+		  	
+		  	$tname = $_POST['videotitle']; 
+		  	$tname = (strlen($tname)>50)?substr($tname,0,47)."...":$tname;//truncate the name
+
 			if($_FILES['upvideo']['size'] > $max_file_size_bytes){
 		      $alert = 'file to big';
 		      $type = 'alert-danger';
 			}else{
 			  $ext = pathinfo($_FILES['upvideo']['name'], PATHINFO_EXTENSION);
-			  $valid_formats = array('ogg','mp4','webm');
+			  $valid_formats = array('ogv','mp4','webm');
 			  $dir = "./video/";
 			  if(in_array($ext, $valid_formats)){ //better check mime type
 				$uniq = lastid() + 1;//other options sha1_file($_FILES['upvideo']['tmp_name']) or uniqid('',true) for a 23 char long
 				$uniq_file_name = $uniq.".".$ext;
 			    if(move_uploaded_file($_FILES['upvideo']['tmp_name'], $dir.$uniq_file_name)){
-					shell_exec('./ffmpeg -i "./video/'.$uniq_file_name.'" -ss 00:00:01 "./thumbnail/large/'.$uniq.'.png" -y 2>&1'); //if you got an error try echo(ing) this
-					shell_exec('./ffmpeg -i ./thumbnail/large/'.$uniq.'.png -s 160x120 ./thumbnail/little/'.$uniq.'.png -y 2>&1');
-					insertvideo($uniq,$_POST['videotitle'],$_POST['videodescription'],$_SESSION['usrid'],$ext,date('Y/m/d'));
+					shell_exec($dirffmpeg.' -i "./video/'.$uniq_file_name.'" -ss 00:00:01 "./thumbnail/large/'.$uniq.'.png" -y 2>&1'); //if you got an error try echo(ing) this
+					shell_exec($dirffmpeg.' -i ./thumbnail/large/'.$uniq.'.png -s 160x120 ./thumbnail/little/'.$uniq.'.png -y 2>&1');  //on server ffmpeg is in the /usr
+					insertvideo($uniq,$tname,$_POST['videodescription'],$_SESSION['usrid'],$ext,date('Y/m/d'));
+					shell_exec('sh '.$dirscript.' '.$uniq.' '.$ext.' > /dev/null 2>/dev/null &');  //call bash script independently
 					$alert = "Your file has been uploaded";
 					$type = 'alert-success';
-				} 
+				}
 
 			  }else{
 				$alert = 'no compatible format';
@@ -54,8 +61,8 @@
 <head>
 	<title>Video colector, Upload your video</title>
 	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
-	<link rel="stylesheet" type="text/css" href="./bootstrap-3.2.0-dist/css/bootstrap.css">
-    <script type="text/javascript" src="./bootstrap-3.2.0-dist/js/bootstrap.js"> </script>
+	<script type="text/javascript" src="./bootstrap-3.3.2-dist/js/bootstrap.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="./bootstrap-3.3.2-dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./css/upload.css">
 	<?php if(isset($_SESSION['usrid'])) echo '<script type="text/javascript" src="javascript/upload.js"></script>'; ?>
 
@@ -75,20 +82,9 @@
     	<?php
 			write_title(); //from ./commonhtml/htmlwritter.php
 		?>
-		<div id="log_sign_search">
-			<div id="search">
-				<form action="index.php" method="get">
-					<INPUT class = "btn-custom" TYPE=SUBMIT VALUE=" Search ">
-					<INPUT id = "txtinput-custom" type="search" name="search" size=70>
-				</form>
-			</div>
-		</div>
 
         <div id= "content" class="panel-body">
-			<?php
-				write_menu(); //from ./commonhtml/htmlwritter.php
-		     
-	         ?>
+        
 	        <div id="uploadcontrols">
 	            <form id="tform" method="post" action="" enctype="multipart/form-data" onsubmit="startPbar()">
 	              <br>
@@ -118,7 +114,6 @@
 		                echo '<input class="btn-custom" id="file" name="upvideo" type="file" accept="video/mp4|video/ogg|video/webm" onchange="processfile();"/>';
 		                echo '<br><br>';
 		                echo '<input class="btn-custom" type="submit" name="submit" value="Submit"/>';
-    	              
     	              }
     	            ?>
     	           </div>

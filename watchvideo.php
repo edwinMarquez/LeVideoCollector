@@ -22,25 +22,21 @@
 	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
 
 	<!--Your good friend bootstrap-->
-    <link rel="stylesheet" type="text/css" href="./bootstrap-3.2.0-dist/css/bootstrap.css">
-    <script type="text/javascript" src="./bootstrap-3.2.0-dist/js/bootstrap.js"> </script>
+    <script type="text/javascript" src="./bootstrap-3.3.2-dist/js/bootstrap.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="./bootstrap-3.3.2-dist/css/bootstrap.min.css">
 
 
     <link rel="stylesheet" type="text/css" href="./css/principal.css">
+    <link rel="stylesheet" type="text/css" href="./css/watchvideo.css">
     <script type="text/javascript" src="./javascript/principal.js"> </script>
-
+    <script type="text/javascript" src="./javascript/watchvideo.js"> </script>
     
 
 
-	<!-- this is the video-js player from http://www.videojs.com/-->
-	<link rel="stylesheet" type="text/css" href="./video-js/video-js.css">
-	<script type="text/javascript" src="./video-js/video.js"></script>
-	<!-- -->
-
-	<!-- need for the video.js-->
-	<script>
-		videojs.options.flash.swf="./video-js/video-js.swf";
-	</script>
+	<!-- need for the mediaelementjs-->
+	<code>
+    <script src="./mediaelement/build/mediaelement-and-player.min.js"></script>
+    <link rel="stylesheet" href="./mediaelement/build/mediaelementplayer.css" /></code>
 
 	<title>"Video Colector"</title>
 </head>
@@ -57,21 +53,11 @@
 
 	<div id="principal" class="panel panel-default">	
 		<?php
-			write_title();
+			write_title(); //this puts the top navbar
 		?>
-		<div id="log_sign_search">
-			<div id="search">
-				<form action="index.php" method="get">
-					<INPUT class = "btn-custom" TYPE=SUBMIT VALUE=" Search ">
-					<INPUT id = "txtinput-custom" type="search" name="search" size=70>
-				</form>
-			</div>
-		</div>
 
 		<div id= "content" class="panel-body">
-			<?php
-				write_menu();
-			?>
+		
 			<div id="videoscontainer">
 
 
@@ -79,22 +65,49 @@
 					$data_video = getdatavideo($_GET['watch']);
 
 					if($row = pg_fetch_array($data_video)){
-						echo '<div id="bestvideo">
-							<video id="thebestvideo" class="video-js vjs-default-skin vjs-big-play-centered"
-								controls preload="auto" width="640" height="364"
+						echo '<div id="bestvideo" >
+							<video id="thebestvideo" 
 								poster="./thumbnail/large/'.$_GET['watch'].'.png"
-								data-setup="{}"
-							>
+								controls="controls" preload="none"
+								"
+							>';
+							$put_original = false;
+							if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '<source type="video/mp4" src="./video/mp4/'.$_GET['watch'].'.mp4"/>';
+							else $put_original = true;
+							if(file_exists('./video/webm/'.$_GET['watch'].'.webm')) echo '<source type="video/webm" src="./video/webm/'.$_GET['watch'].'.webm"/>';
+							else $put_original = true;
+							if(file_exists('./video/ogv/'.$_GET['watch'].'.ogv')) echo '<source type="video/ogg" src="./video/ogv/'.$_GET['watch'].'.ogv"/>';
+							else $put_original = true;
+							if($put_original)echo '<source src="./video/'.$_GET['watch'].'.'.$row['videotype'].'" type="video/'.$row['videotype'].'"/>';
 
-							<source src="./video/'.$_GET['watch'].'.'.$row['videotype'].'" type="video/'.$row['videotype'].'"/>
-							<p class="vjs-no-js">To view this video please enable javaScript</p>
-							</video>
-						</div>
-						<h2>'.$row['videoname'].'</h2>';
-						echo '<br>';
-						echo '<div id= descripcion width="640">
+							echo '<object type="application/x-shockwave-flash" data="./mediaelement/build/flashmediaelement.swf">
+                                    <param name="movie" value="./mediaelement/build/flashmediaelement.swf" />
+                                    <param name="flashvars" value="controls=true&file=';
+                                   if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '/video/mp4/'.$_GET['watch'].'.mp4';
+                                   else if($_GET['videotype'] == mp4) echo './video/'.$_GET['watch'].'.mp4';
+                                   else echo 'none'; 
+                                    echo '" />
+                                    <img src="./thumbnail/large/'.$_GET['watch'].'.png" title="No video playback capabilities" />
+                                  </object>';
+
+							echo'</video>';
+							if($put_original){
+								echo '<div id="alert" class="alert alert-danger">This video is still been converted to other formats, so you may 
+								      have some problems watching it</div>';
+							}
+
+						echo '</div>'; //end of best video
+
+						echo '<div class="panel panel-default">';
+						echo '<div class="panel-heading">';
+						echo '<h3>'.$row['videoname'].'</h3>';
+						echo '</div>'; //end of panel heading
+						echo '<div id= descripcion class = "panel-body">
                                 '.$row['description'].'
 						      </div>';
+
+
+						echo '</div>'; //end of panel panel-default
 					}
 
 					

@@ -28,7 +28,7 @@
         else if(!isset($_SESSION['name'])){
           if(isset($_POST['unusername']) && isset($_POST['unuseremail']) && isset($_POST['unpassword'])){
             
-            //sign_up($_POST['unusername'], $_POST['unuseremail'], $_POST['unpassword']);
+            sign_up($_POST['unusername'], $_POST['unuseremail'], $_POST['unpassword']);
 
             $usr_info = sign_in($_POST['unuseremail'], $_POST['unpassword']);
             if($row = pg_fetch_array($usr_info)){

@@ -26,6 +26,7 @@
 		global $db_usr;
 		global $db_pwd;
 		global $db_name;
+		global $db_port;
 
 		return pg_connect('user='.$db_usr.' password='.$db_pwd.' host= '.$db_host.' dbname = '.$db_name.' port = '.$db_port);
 	}
@@ -55,11 +56,9 @@
 	function sign_in($usemail, $pass){
 		//in case a distracted user happens to visit
 		$realusemail = pg_escape_string($usemail);
-		echo "$realusemail<br>";
 		$realpass = pg_escape_string($pass);
 		global $salt;
 		$thepassword = md5($realpass.$salt);
-		echo "$thepassword<br>";
 		$query = "SELECT idUsuario, UserName, avatar FROM Usuario WHERE UserEmail = '".$realusemail."' and pass = '".$thepassword."';";
 		$link = createConection();
 		$result = pg_exec($link, $query);

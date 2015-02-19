@@ -9,11 +9,11 @@ Requirements:
 
 -php , (and all it requires to work with, the project is fully written in php).
 
--mysql (at least)
+-postgres
 
-- ffmpeg library installed and working. (This library is used to take the thumbnails of the videos uploaded. I'm taking two of different sizes by now, xampp user beware you may have to update some libraries manually to make it work).
+- ffmpeg library installed and working. (This library is used to take the thumbnails of the videos uploaded and convert them. I'm taking two of different sizes by now, xampp user beware you may have to update some libraries manually to make it work).
 
--videojs (i've included a folder with the videojs library , i'm using it to show the videos, you can check their website http://videojs.com/ to learn more).
+-mediaelement as an html5 player
 
 
 -----
@@ -26,5 +26,4 @@ In the folder “dataAcces” you can find a file called: “configs.php” that
 
 Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.
 
-You can see how it looks by going into the "screenshots" folder.
  

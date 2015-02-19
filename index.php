@@ -22,7 +22,7 @@
 	  //puntuation still not in use
 	  $name = (strlen($name)>32)?substr($name,0,29)."...":$name;
       echo '<a href=./watchvideo.php?watch='.$id.'>';
-	  echo '<div class="col-sm-6 col-md-4">';
+	  echo '<div class="col-xs-8 col-sm-6 col-md-3 col-lg-3">';  //  col-sm-6 col-md-4
       echo '<div class="Thumbnail">'; 
 	  echo '<img src="./thumbnail/little/'.$id.'.png" >';
       echo '<div class="caption">';
@@ -35,27 +35,20 @@
 
 
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
 
 	<!--jquerry-->
 	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
 	<!--Your good friend bootstrap-->
-    <link rel="stylesheet" type="text/css" href="./bootstrap-3.2.0-dist/css/bootstrap.css">
-    <script type="text/javascript" src="./bootstrap-3.2.0-dist/js/bootstrap.js"> </script>
+	<script type="text/javascript" src="./bootstrap-3.3.2-dist/js/bootstrap.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="./bootstrap-3.3.2-dist/css/bootstrap.min.css">
+
+
     <link rel="stylesheet" type="text/css" href="./css/principal.css">
     <script type="text/javascript" src="./javascript/principal.js"> </script>
 
-	<!-- this is the video-js player from http://www.videojs.com/-->
-	<link rel="stylesheet" type="text/css" href="./video-js/video-js.css">
-	<script type="text/javascript" src="./video-js/video.js"></script>
-	<!-- -->
-	
-	<!-- need for the video.js-->
-	<script>
-		videojs.options.flash.swf="./video-js/video-js.swf";
-	</script>
 
 	<title>"Video Colector"</title>
 </head>
@@ -73,19 +66,8 @@
 		<?php
 			write_title(); //from ./commonhtml/htmlwritter.php
 		?>
-		<div id="log_sign_search">
-			<div id="search">
-				<form >
-					<INPUT class = "btn-custom" TYPE=SUBMIT VALUE=" Search ">
-					<INPUT id = "txtinput-custom" type="search" name="search" size=70>
-				</form>
-			</div>
-		</div>
 
 		<div id= "content" class="panel-body">
-			<?php
-				write_menu(); //from ./commonhtml/htmlwritter.php
-			?>
 			<div id="videoscontainer">
 			  <div class = "row">
 			  <?php
@@ -125,11 +107,6 @@
 			  	        while($row = pg_fetch_array($allvideos)){
 			  	           writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
 			  	 	    }
-			  	        //$numrows = pg_num_rows($allvideos);
-			  	        //for($i = 0; $i < $numrows; $i++){
-			  	        //	$row = pg_fetch_array($allvideos, $i);
-			  	        //	writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
-			  	        //}
 
 			  	 	  
 			  	    }

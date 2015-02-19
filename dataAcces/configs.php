@@ -1,12 +1,12 @@
 <?php
 
-$url = parse_url(getenv('DATABASE_URL'));
+//$url = parse_url(getenv('DATABASE_URL'));
 //database parameters
-$db_host = $url["host"];
-$db_usr = $url["user"];
-$db_pwd = $url["pass"];
-$db_name = ltrim($url["path"],'/');
-$db_port = $url["port"];
+$db_host = 'localhost';  //$url["host"];
+$db_usr = 'postgres'; //$url["user"];
+$db_pwd =  'root';  //$url["pass"];
+$db_name = 'videocolector';  //ltrim($url["path"],'/');
+$db_port = '5432';//$url["port"];
 
 //$url = '';
 //database parameters
