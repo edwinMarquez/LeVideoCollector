@@ -9,8 +9,8 @@
 	include './commonphp/checklogin.php';
 
 	global $max_file_size_bytes;
-	$dirffmpeg = './extras/ffmpeg';
-	$dirscript = './extras/convertvid_scripts.sh';
+	$dirffmpeg = '/usr/local/bin/ffmpeg';
+	$dirscript = '/usr/local/bin/convertvid_scripts.sh';
 
 	if(isset($_SESSION['usrid'])){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){

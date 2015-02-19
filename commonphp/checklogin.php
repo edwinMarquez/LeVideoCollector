@@ -9,7 +9,7 @@
 
 	//checking if the user logs in
 	if(!isset($_SESSION['name'])){
-    	if(isset($_POST['acuseremail']) && isset($_POST['acpassword'])){
+    	if(isset($_POST['acuseremail']) && isset($_POST['acpassword']) && $_POST['acuseremail'] != "" && $_POST['acpassword']){
 
     		$usr_info = sign_in($_POST['acuseremail'], $_POST['acpassword']);
 
@@ -26,7 +26,7 @@
 
          //cheking if the user sign up
         else if(!isset($_SESSION['name'])){
-          if(isset($_POST['unusername']) && isset($_POST['unuseremail']) && isset($_POST['unpassword'])){
+          if(isset($_POST['unusername']) && isset($_POST['unuseremail']) && isset($_POST['unpassword']) && $_POST['unusername'] != "" && $_POST['unuseremail'] != "" && $_POST['unuseremail'] != ""){
             
             sign_up($_POST['unusername'], $_POST['unuseremail'], $_POST['unpassword']);
 
