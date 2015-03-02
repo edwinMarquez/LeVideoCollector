@@ -65,7 +65,7 @@
 					$data_video = getdatavideo($_GET['watch']);
 
 					if($row = pg_fetch_array($data_video)){
-						echo '<div id="bestvideo" >
+						echo '<div id="bestvideo" value = "'.$_GET['watch'].'">
 							<video id="thebestvideo" 
 								poster="./thumbnail/large/'.$_GET['watch'].'.png"
 								controls="controls" preload="none"
@@ -94,6 +94,42 @@
 							if($put_original){
 								echo '<div id="alert" class="alert alert-danger">This video is still been converted to other formats, so you may 
 								      have some problems watching it</div>';
+							}else{
+								$cbtnup = "btn btn-default";
+								$cbtndown = "btn btn-default";
+								$checkok = false;
+								if(isset($_SESSION['usrid'])){
+									$check = checkvote($_GET['watch'],$_SESSION['usrid']);
+									if($row2 = pg_fetch_array($check)){
+										$checkok = true;
+										$prevvote = ($row2['vote'] == 't')?true:false;
+									}
+									if($checkok && $prevvote){
+										$cbtnup = "btn btn-success"; //button up bootstrap class
+									}else if($checkok && !$prevvote){
+										$cbtndown = "btn btn-danger"; //button down bootstrap class
+									}
+								}
+								
+								echo '<div id = appreciation class="well">
+
+								   <div class = "btn-toolbar" role="toolbar">
+								   How was the video?
+								   <button id = "upvote" type="button" class="'.$cbtnup.'">
+								    Good <span class="glyphicon glyphicon-thumbs-up"> </span>
+								   </button>
+								   <span id="upnumber">'.$row['upvotes'].'</span>
+									 
+								   <button id = "downvote" type="button" class="'.$cbtndown.'">
+								     Bad <span class="glyphicon glyphicon-thumbs-down"> </span>
+								   </button>
+								   <span id = "downnumber">'.$row['downvotes'].'</span>
+								   </div>
+								   <br>
+								   <p id="alert" class="bg-primary"></p>
+								</div>';
+
+
 							}
 
 						echo '</div>'; //end of best video

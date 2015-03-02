@@ -66,23 +66,6 @@ body{
 	float: right;
 }
 
-.btn-custom {
-  background-color: hsl(167, 3%, 77%) !important;
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f1f2f2", endColorstr="#c2c6c5");
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#f1f2f2), to(#c2c6c5));
-  background-image: -moz-linear-gradient(top, #f1f2f2, #c2c6c5);
-  background-image: -ms-linear-gradient(top, #f1f2f2, #c2c6c5);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f1f2f2), color-stop(100%, #c2c6c5));
-  background-image: -webkit-linear-gradient(top, #f1f2f2, #c2c6c5);
-  background-image: -o-linear-gradient(top, #f1f2f2, #c2c6c5);
-  background-image: linear-gradient(#f1f2f2, #c2c6c5);
-  border-color: #c2c6c5 #c2c6c5 hsl(167, 3%, 72.5%);
-  color: #333 !important;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.29);
-  -webkit-font-smoothing: antialiased;
-  border-radius: 6px;
-}
 
 #txtinput-custom{
 	margin-bottom: 0px;

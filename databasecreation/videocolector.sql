@@ -23,27 +23,38 @@ CREATE TABLE Usuario (
 );
 
 
-
-CREATE TABLE video (
-  idVideo SERIAL NOT NULL,
-  VideoName text NOT NULL,
-  Puntuacion integer NOT NULL,
-  Votes integer NOT NULL,
-  Description text NOT NULL,
-  idUsuario integer NOT NULL,
-  VideoType text NOT NULL,
+CREATE TABLE video
+(
+  idvideo serial NOT NULL,
+  videoname text NOT NULL,
+  upvotes integer NOT NULL,
+  downvotes integer NOT NULL,
+  description text NOT NULL,
+  idusuario integer NOT NULL,
+  videotype text NOT NULL,
   warnings integer NOT NULL,
-  UpDate date NOT NULL,
-  PRIMARY KEY (idVideo)
+  update date NOT NULL,
+  CONSTRAINT video_pkey PRIMARY KEY (idvideo),
+  CONSTRAINT fk_usuario_video FOREIGN KEY (idusuario)
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE TABLE votexuser
+(
+  idvotexuser serial NOT NULL,
+  idusuario integer NOT NULL,
+  idvideo integer NOT NULL,
+  vote boolean NOT NULL, --true equal positive vote.
+  CONSTRAINT votex_pkey PRIMARY KEY (idvideo),
+  CONSTRAINT fk_usuario_votex FOREIGN KEY (idusuario)
+    REFERENCES usuario (idusuario) MATCH SIMPLE,
+  CONSTRAINT fk_video_votex FOREIGN KEY (idvideo)
+    REFERENCES video (idvideo) MATCH SIMPLE
+
+);
 
 ALTER TABLE coments
   ADD CONSTRAINT fk_usuario_coment FOREIGN KEY (idUsuario) REFERENCES video (idUsuario),
   ADD CONSTRAINT fk_video_coment FOREIGN KEY (idVideo) REFERENCES video (idVideo);
-
-
-
-ALTER TABLE video
-  ADD CONSTRAINT fk_usuario_video FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario);
 

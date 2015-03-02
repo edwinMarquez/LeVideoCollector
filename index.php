@@ -77,7 +77,7 @@
 			          //getting the page to show
 			          if($bystring = searchString($_GET['search'], $page)){
 			  	         while($row = pg_fetch_array($bystring)){ 
-			  	 	       writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
+			  	 	       writelist($row['idvideo'],$row['videoname'],$row['upvotes']);
 			  	 	      }
 			  	 	  
 			  	       }
@@ -87,14 +87,14 @@
 			    	if($_GET['sort'] == 'recent'){
 			    		if($moreRecent = searchMoreRecent($page)){
 			    		  while($row = pg_fetch_array($moreRecent)){
-			    		   writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
+			    		   writelist($row['idvideo'],$row['videoname'],$row['upvotes']);
 			    		  }
 			    		}
 			    	}elseif($_GET['sort']=='bestq'){
 			    		//showing the best rated
 			    		if($bestRated = searchBestRated($page)){
 			    		  while($row = pg_fetch_array($bestRated)){
-			    		   writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
+			    		   writelist($row['idvideo'],$row['videoname'],$row['upvotes']);
 			    		  }
 			    		}
 
@@ -105,7 +105,7 @@
 			    	if($allvideos = allvideos($page)){
 			    	                        
 			  	        while($row = pg_fetch_array($allvideos)){
-			  	           writelist($row['idvideo'],$row['videoname'],$row['puntuacion']);
+			  	           writelist($row['idvideo'],$row['videoname'],$row['upvotes']);
 			  	 	    }
 
 			  	 	  

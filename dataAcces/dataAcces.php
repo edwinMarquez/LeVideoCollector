@@ -98,7 +98,7 @@
 	**/
 	function getdatavideo($videoid){
 		$id = pg_escape_string($videoid);
-		$query = "SELECT videoName, Puntuacion, Votes, Description, idUsuario, VideoType FROM video WHERE idVideo = '".$id."';";
+		$query = "SELECT videoName, upvotes, downvotes, Description, idUsuario, VideoType FROM video WHERE idVideo = '".$id."';";
 		$link = createConection();
 		$result = pg_exec($link, $query);
 		closeConection($link);
@@ -171,7 +171,7 @@
 		global $numofVideos;
 		$realpagenum = pg_escape_string($pagenum);
 		$link = createConection();
-		$query = 'SELECT idVideo, VideoName, Puntuacion FROM video Order By VideoName Asc Limit '.$numofVideos.' OFFSET '.$realpagenum * $numofVideos.';';
+		$query = 'SELECT idVideo, VideoName, upvotes, downvotes FROM video Order By VideoName Asc Limit '.$numofVideos.' OFFSET '.$realpagenum * $numofVideos.';';
 		$result = pg_exec($link,$query);
         closeConection($link);
 		return $result;
@@ -233,7 +233,7 @@
     	global $numofVideos;
     	$realpage = pg_escape_string($page);
     	$link = createConection();
-        $query = 'SELECT * FROM video ORDER BY Puntuacion Desc Limit '.$numofVideos.' OFFSET '.$realpage*$numofVideos;
+        $query = 'SELECT * FROM video ORDER BY upvotes Desc Limit '.$numofVideos.' OFFSET '.$realpage*$numofVideos;
         $result = pg_exec($link,$query);
         closeConection($link);
         return $result;
@@ -297,5 +297,145 @@
     	return ceil(countallvideos_searchstring($string) / $numofVideos);
     }
 
+    /**
+    *
+    * Adds one to the upvote count
+    *
+    * @return true or false on success or not
+    **/
+    function upvote($videoid){
+    	$realid = pg_escape_string($videoid);
+    	$query1 = "SELECT upvotes FROM video where idvideo = ".$realid;
+    	$link = createConection();
+    	if($row = pg_fetch_array(pg_exec($link,$query1))){
+    		$total = $row['upvotes'] + 1;
+    		$query2 = "UPDATE video set upvotes = ".$total." where idvideo = ".$realid;
+    		pg_exec($link, $query2);
+    		closeConection($link);
+    		return true;
+    	}else{
+    		closeConection($link);
+    		return false;
+    	}
+    }
 
+    /**
+    *
+    * Adds one to the downvote count
+    *
+    *@return true or false on succes or not
+    *
+    **/
+    function downvote($idvideo){
+    	$realid = pg_escape_string($idvideo);
+    	$query1 = "SELECT downvotes FROM video where idvideo = ".$realid;
+    	$link = createConection();
+    	if($row = pg_fetch_array(pg_exec($link,$query1))){
+    		$total = $row['downvotes'] + 1;
+    		$query2 = "UPDATE video set downvotes = ".$total." where idvideo = ".$realid;
+    		pg_exec($link, $query2);
+    		closeConection($link);
+    		return true;
+    	}else{
+    		closeConection($link);
+    		return false;
+    	}
+    }
+
+    /**
+    *
+    *Checks if an user has alredy voted for a video by looking if the registry exists in the database
+    *
+    *@return pg_result
+    *
+    **/
+    function checkvote($idvideo, $iduser){
+    	$realid = pg_escape_string($idvideo);
+    	$realusr = pg_escape_string($iduser);
+    	$query = "SELECT idvotexuser, vote FROM votexuser where idvideo = ".$realid." and idusuario = ".$realusr;
+    	$link = createConection();
+    	$result = pg_exec($link, $query);
+    	closeConection($link);
+    	return $result;
+    }
+
+    /**
+    *
+    * Changes the vote of a user that has alredy voted, good to bad, and bad to good
+    *
+    *
+    *	@return true or false
+    *
+    **/
+    //I'm not  using transactions but if it was more serious stuff i should. 
+    // and improve would be to create functions on the database. maybe later
+    function changevote($idvideo, $iduser){
+    	$realid  = pg_escape_string($idvideo);
+    	$realusr = pg_escape_string($iduser);
+    	$query1 = "SELECT vote from votexuser where idvideo =".$realid."and idusuario = ".$realusr;
+    	$link = createConection();
+        if($row = pg_fetch_array(pg_exec($link, $query1))){
+        	$currentvote = ($row['vote'] == "t")?true:false;
+        	$query2 = "UPDATE votexuser set vote = ".(($currentvote)?"false":"true")." where idvideo = ".$realid." and idusuario = ".$realusr;
+        	if(pg_exec($link, $query2)){
+        		//now update the vote on the videos table
+        		$query3 = "SELECT upvotes, downvotes from video where idvideo = ".$realid;
+        		if($row2 = pg_fetch_array(pg_exec($link, $query3))){
+        			$upvotes = $row2['upvotes'];
+        			$downvotes = $row2['downvotes'];
+        			if($currentvote){
+        				$query4 = "UPDATE video SET upvotes = ".($upvotes - 1)." ,downvotes = ".($downvotes + 1). " where idvideo = ".$realid;
+        				if(pg_exec($link, $query4)){
+        					closeConection($link);
+        					return true;
+        				}else{
+        					closeConection($link);
+        					return false;
+        				}
+        			}else{ //current vote id downvote
+        				$query4 = "UPDATE video SET upvotes = ".($upvotes + 1)." ,downvotes = ".($downvotes - 1). " where idvideo = ".$realid;
+        				if(pg_exec($link, $query4)){
+        					closeConection($link);
+        					return true;
+        				}else{
+        					closeConection($link);
+        					return false;
+        				}
+        			}
+        		}else{  //the search for the up and down votes did not work 
+        			closeConection($link);
+        			return false;
+        		}
+        	}else{  //the table votexuser was not updated
+        		closeConection($link);
+        		return false;
+        	}
+        }else{  //the search for the vote value did not work
+        	closeConection($link);
+        	return false;
+        }
+
+    }
+
+    /**
+    *
+    * Creates a new entry in the votes table (votexuser)
+    *
+    *@return true or false, true on success
+    *
+    **/
+    function newvote($idvideo, $iduser, $vote){
+    	$realid = pg_escape_string($idvideo);
+    	$realuser = pg_escape_string($iduser);
+    	$realvote = pg_escape_string($vote);
+    	$query = "INSERT into votexuser (idusuario, idvideo, vote) values (".$realuser.", ".$realid.", ".$realvote.")";
+    	$link = createConection();
+    	if(pg_exec($link, $query)){
+    		closeConection($link);
+    		return true;
+    	}else{
+    		closeConection($link);
+    		return false;
+    	}
+    }
 ?>
