@@ -13,6 +13,20 @@
 	//check if the user logs in
 	include './commonphp/checklogin.php';
 
+	/**
+	*
+	* This functios write the coments in the selected format
+	*
+	*@return echoes the coments
+	*
+	**/
+	function writecomment($user,$coment){
+		echo '<div class="comment">
+		  <h5><b>'.$user.' Says:</b></h5>
+		  <p style="text-indent:40px;text-align:justify">'.$coment.'</p>
+		</div>';
+	}
+
 ?>
 
 <html>
@@ -111,7 +125,7 @@
 									}
 								}
 								
-								echo '<div id = appreciation class="well">
+								echo '<div id = appreciation class="well well-sm">
 
 								   <div class = "btn-toolbar" role="toolbar">
 								   How was the video?
@@ -125,25 +139,45 @@
 								   </button>
 								   <span id = "downnumber">'.$row['downvotes'].'</span>
 								   </div>
-								   <br>
-								   <p id="alert" class="bg-primary"></p>
-								</div>';
+								   <p id="alert" class="bg-danger" style = "display:none;"><br>you need to Sign in before you vote<br><br></p>
+								';
 
 
 							}
 
 						echo '</div>'; //end of best video
-
-						echo '<div class="panel panel-default">';
-						echo '<div class="panel-heading">';
+						//video name and description part
+						echo '<div class="panel panel-info">';
+						echo '<div id="headingname" class="panel-heading">';
 						echo '<h3>'.$row['videoname'].'</h3>';
+						echo '<span id="rolldescription" class="glyphicon glyphicon-collapse-down"> </span>';
 						echo '</div>'; //end of panel heading
-						echo '<div id= descripcion class = "panel-body">
+						echo '<div id= descripcion style="display:none;"><br>
                                 '.$row['description'].'
-						      </div>';
+						      <br></div>';	
+						echo '</div></div>'; //end of panel panel-default
 
+						//coments part
 
-						echo '</div>'; //end of panel panel-default
+						echo '<div id = "commentlist">';
+
+						echo   '<div id = "postcomment">
+								  <INPUT id="commenttext" type="text" name="search" style="width:80%">
+								  <button id="post" type="button" class="btn btn-default">
+								  	Post Comment <span class="glyphicon glyphicon-comment"></span>
+								  </button>
+								  <p id="alert-comment" class="bg-danger" style = "display:none;"><br>you need to Sign in before you post a comment<br><br></p>
+						        </div>';
+
+						echo    '<div id = "commentpart">';
+									$comments = getcomments(20,$_GET['watch']);
+						 	    	while($row3=pg_fetch_array($comments)){
+						 	    		writecomment($row3['username'],$row3['coment']);
+						 	    	}
+
+						echo     '</div>';
+						echo  '</div>';
+
 					}
 
 					

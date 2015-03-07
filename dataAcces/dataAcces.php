@@ -309,7 +309,7 @@
     	$link = createConection();
     	if($row = pg_fetch_array(pg_exec($link,$query1))){
     		$total = $row['upvotes'] + 1;
-    		$query2 = "UPDATE video set upvotes = ".$total." where idvideo = ".$realid;
+    		$query2 = "UPDATE video set upvotes = ".$total." where idvideo = ".$realid.";";
     		pg_exec($link, $query2);
     		closeConection($link);
     		return true;
@@ -332,7 +332,7 @@
     	$link = createConection();
     	if($row = pg_fetch_array(pg_exec($link,$query1))){
     		$total = $row['downvotes'] + 1;
-    		$query2 = "UPDATE video set downvotes = ".$total." where idvideo = ".$realid;
+    		$query2 = "UPDATE video set downvotes = ".$total." where idvideo = ".$realid.";";
     		pg_exec($link, $query2);
     		closeConection($link);
     		return true;
@@ -352,7 +352,7 @@
     function checkvote($idvideo, $iduser){
     	$realid = pg_escape_string($idvideo);
     	$realusr = pg_escape_string($iduser);
-    	$query = "SELECT idvotexuser, vote FROM votexuser where idvideo = ".$realid." and idusuario = ".$realusr;
+    	$query = "SELECT idvotexuser, vote FROM votexuser where idvideo = ".$realid." and idusuario = ".$realusr.";";
     	$link = createConection();
     	$result = pg_exec($link, $query);
     	closeConection($link);
@@ -384,7 +384,7 @@
         			$upvotes = $row2['upvotes'];
         			$downvotes = $row2['downvotes'];
         			if($currentvote){
-        				$query4 = "UPDATE video SET upvotes = ".($upvotes - 1)." ,downvotes = ".($downvotes + 1). " where idvideo = ".$realid;
+        				$query4 = "UPDATE video SET upvotes = ".($upvotes - 1)." ,downvotes = ".($downvotes + 1). " where idvideo = ".$realid.";";
         				if(pg_exec($link, $query4)){
         					closeConection($link);
         					return true;
@@ -393,7 +393,7 @@
         					return false;
         				}
         			}else{ //current vote id downvote
-        				$query4 = "UPDATE video SET upvotes = ".($upvotes + 1)." ,downvotes = ".($downvotes - 1). " where idvideo = ".$realid;
+        				$query4 = "UPDATE video SET upvotes = ".($upvotes + 1)." ,downvotes = ".($downvotes - 1). " where idvideo = ".$realid.";";
         				if(pg_exec($link, $query4)){
         					closeConection($link);
         					return true;
@@ -428,7 +428,7 @@
     	$realid = pg_escape_string($idvideo);
     	$realuser = pg_escape_string($iduser);
     	$realvote = pg_escape_string($vote);
-    	$query = "INSERT into votexuser (idusuario, idvideo, vote) values (".$realuser.", ".$realid.", ".$realvote.")";
+    	$query = "INSERT into votexuser (idusuario, idvideo, vote) values (".$realuser.", ".$realid.", ".$realvote.");";
     	$link = createConection();
     	if(pg_exec($link, $query)){
     		closeConection($link);
@@ -438,4 +438,47 @@
     		return false;
     	}
     }
+
+    /**
+    *
+    *Inserts a comment in the database
+    *
+    *@param $idusr the id of the user making the comment
+    *@param $idvideo the id of the video being commented
+    *@param $date the date of the comment, (not scaped since it is not asked to the user)
+    *
+    *@return true on success false on failure
+    **/
+    function insertcomment($idusr,$idvideo,$comment,$date){
+    	$realidusr = pg_escape_string($idusr);
+    	$realidvideo = pg_escape_string($idvideo);
+    	$realcomment = pg_escape_string($comment);
+    	$query = "INSERT into coments(coment, idusuario, idvideo,warnings,codate) values('".$realcomment."', '".$realidusr."', '".$realidvideo."', '0', '".$date."' );";
+    	$link = createConection();
+    	if(pg_exec($link,$query)){
+    		return true;
+    	}else{
+    		return false;
+    	}
+
+    }
+
+    /**
+    *
+    * Looks for the last comments,
+    * 
+    *@return pg_result
+    *
+    **/
+    function getcomments($num,$idvideo){
+    	$realnum = pg_escape_string($num);
+    	$realidvideo = pg_escape_string($idvideo);
+    	$query = "SELECT u.username, c.coment, c.codate from usuario u inner join coments c on u.idusuario = c.idusuario where c.idvideo = ".$realidvideo." ORDER BY c.codate DESC LIMIT ".$realnum.";";
+    	$link = createConection();
+    	$result = pg_exec($link, $query);
+    	closeConection($link);
+    	return $result;
+    }
+
+
 ?>

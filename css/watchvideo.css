@@ -11,3 +11,34 @@ video {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#headingname:hover{
+	cursor:pointer;
+}
+
+#appreciation{
+	margin-bottom: 5px;
+}
+
+#alert{
+	margin: 5px;
+}
+
+#commentlist{
+	text-align:left;
+	padding-right: 70px;
+	padding-left: 70px;
+}
+
+#postcomment{
+	margin-top: 30px;
+	margin-bottom: 10px;
+	margin-right: 50px;
+	margin-left: 50px;
+}
+
+#commentpart{
+	max-height: 300px;
+	overflow: auto;
+
+}

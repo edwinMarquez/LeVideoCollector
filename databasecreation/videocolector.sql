@@ -5,9 +5,10 @@
 CREATE TABLE coments (
   idComent SERIAL NOT NULL,
   coment text NOT NULL,
-  idUsuario integer NOT NULL unique,
-  idVideo integer NOT NULL unique,
+  idUsuario integer NOT NULL,
+  idVideo integer NOT NULL,
   warnings integer NULL,
+  codate date NOT NULL,
   PRIMARY KEY (idComent)
 );
 

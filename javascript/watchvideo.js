@@ -57,6 +57,23 @@ $(document).ready(function(){
         vote("down");
   });
 
+  $('#headingname').click(
+    function(){
+        if($('#descripcion').css('display') == 'none'){
+            $('#rolldescription').attr("class","glyphicon glyphicon-collapse-up");
+            $('#descripcion').show('slow');
+        }else{
+            $('#rolldescription').attr("class","glyphicon glyphicon-collapse-down");
+            $('#descripcion').hide('fast');
+        }
+  });
+
+  $('#post').click(
+    function(){
+        comment();
+    });
+
+
 });
 
 
@@ -85,7 +102,12 @@ function updatevotes(type){
         $('#downnumber').html(down);
         $('#downvote').attr("class","btn btn-danger");
     }else if(type == "nolog"){
-        $('#alert').html("<br>you need to Sign in before you vote<br><br>");
+        if($('#alert').css('display') == 'none'){
+            $('#alert').show('fast');
+        }else{
+            $('#alert').hide('fast');
+        }
+        
     }else if(type == "changedu"){
         var up = parseInt($('#upnumber').html()) + 1;
         var down = parseInt($('#downnumber').html()) - 1;
@@ -100,5 +122,37 @@ function updatevotes(type){
         $('#downnumber').html(down);
         $('#upvote').attr("class", "btn btn-default");
         $('#downvote').attr("class","btn btn-danger");
+    }
+}
+
+
+function comment(){
+    var videoid = $('#bestvideo').attr('value');
+    var commenttext = $('#commenttext').val();
+    $.ajax({
+        url: './comment.php',
+        data: {comment: commenttext, idvideo: videoid},
+        type: 'post',
+        success: function(output){
+            updatecomments(output);
+        }
+
+    });
+
+}
+
+
+function updatecomments(output){
+    if(output == 'nolog'){
+        if($('#alert-comment').css('display') == 'none'){
+            $('#alert-comment').show('fast');
+        }else{
+            $('#alert-comment').hide('fast');
+        }
+    }
+
+    if(output.substring(0,7) == 'posted '){
+        $('#commentpart').html(output.substring(7));
+        $('#commenttext').val('');
     }
 }
