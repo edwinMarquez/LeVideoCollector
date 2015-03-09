@@ -140,12 +140,11 @@
 								   <span id = "downnumber">'.$row['downvotes'].'</span>
 								   </div>
 								   <p id="alert" class="bg-danger" style = "display:none;"><br>you need to Sign in before you vote<br><br></p>
-								';
+								   </div>';
 
 
 							}
-
-						echo '</div>'; //end of best video
+							
 						//video name and description part
 						echo '<div class="panel panel-info">';
 						echo '<div id="headingname" class="panel-heading">';
