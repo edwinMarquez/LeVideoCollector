@@ -5,9 +5,9 @@ $(document).ready(function(){
     // if the <video height> is not specified, this is the default
     //defaultVideoHeight: 364,
     // if set, overrides <video width>
-    videoWidth: $('video').width(),//-1,
+    videoWidth: '100%',//-1,
     // if set, overrides <video height>
-    videoHeight: $('video').height(),//-1,
+    videoHeight: '100%',//-1,
     // width of audio player
     //audioWidth: 640,
     // height of audio player

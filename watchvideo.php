@@ -83,7 +83,7 @@
 							<video id="thebestvideo" 
 								poster="./thumbnail/large/'.$_GET['watch'].'.png"
 								controls="controls" preload="none"
-								"
+								
 							>';
 							$put_original = false;
 							if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '<source type="video/mp4" src="./video/mp4/'.$_GET['watch'].'.mp4"/>';
