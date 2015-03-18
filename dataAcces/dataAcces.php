@@ -197,7 +197,7 @@
 		$link = createConection();
 		$realVideoName = pg_escape_string($VideoName);
 		$realDescription = pg_escape_string($Description);
-		$query = 'INSERT into video (idVideo, VideoName,puntuacion, Votes, Description,idUsuario,VideoType,warnings,UpDate) values (\''.$idVideo.'\',\''.$realVideoName.'\',0,0,\''.$realDescription.'\',\''.$idUsuario.'\',\''.$VideoType.'\',0,\''.$UpDate.'\')';
+		$query = 'INSERT into video (idVideo, VideoName,upvotes, downvotes, Description,idUsuario,VideoType,warnings,UpDate) values (\''.$idVideo.'\',\''.$realVideoName.'\',0,0,\''.$realDescription.'\',\''.$idUsuario.'\',\''.$VideoType.'\',0,\''.$UpDate.'\')';
 		$result = pg_exec($link,$query);
         closeConection($link);
 		return $result;
