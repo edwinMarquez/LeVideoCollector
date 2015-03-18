@@ -117,7 +117,7 @@
 
 				<ul class = "nav navbar-nav">
 
-					<li><p class="navbar-text" style="color:black">Welcome '.$_SESSION['name'].'</p></li>
+					<li><p class="navbar-text" style="color:black">Welcome '.htmlspecialchars($_SESSION['name']).'</p></li>
 
 					<li >
 						<a href="upload.php">Upload</a>                  

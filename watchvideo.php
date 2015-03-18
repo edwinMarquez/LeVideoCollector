@@ -22,8 +22,8 @@
 	**/
 	function writecomment($user,$coment){
 		echo '<div class="comment">
-		  <h5><b>'.$user.' Says:</b></h5>
-		  <p style="text-indent:40px;text-align:justify">'.$coment.'</p>
+		  <h5><b>'.htmlspecialchars($user).' Says:</b></h5>
+		  <p style="text-indent:40px;text-align:justify">'.htmlspecialchars($coment).'</p>
 		</div>';
 	}
 
@@ -148,11 +148,11 @@
 						//video name and description part
 						echo '<div class="panel panel-info">';
 						echo '<div id="headingname" class="panel-heading">';
-						echo '<h3>'.$row['videoname'].'</h3>';
+						echo '<h3>'.htmlspecialchars($row['videoname']).'</h3>';
 						echo '<span id="rolldescription" class="glyphicon glyphicon-collapse-down"> </span>';
 						echo '</div>'; //end of panel heading
 						echo '<div id= descripcion style="display:none;"><br>
-                                '.$row['description'].'
+                                '.htmlspecialchars($row['description']).'
 						      <br></div>';	
 						echo '</div></div>'; //end of panel panel-default
 
