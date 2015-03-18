@@ -13,8 +13,8 @@
 	**/
 	function writecomment($user,$coment){
 		echo '<div class="comment">
-		  <h5><b>'.$user.' Says:</b></h5>
-		  <p style="text-indent:40px;text-align:justify">'.$coment.'</p>
+		  <h5><b>'.htmlspecialchars($user).' Says:</b></h5>
+		  <p style="text-indent:40px;text-align:justify">'.htmlspecialchars($coment).'</p>
 		</div>';
 	}
 
