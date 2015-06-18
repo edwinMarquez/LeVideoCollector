@@ -1,199 +1,393 @@
 <?php
-  //session related stuff
-    session_start();
+  session_start();
+  if(!isset($_GET['watch'])){  //if the user did not specify a video to watch go to home screen
+    header('Location:index.php');
+  }
+  $row;
 
-    if(!isset($_GET['watch'])){
-    	header('Location:index.php');
-    }
+  //functions to use the database
+  include './dataAcces/dataAcces.php';
+  //functions to log in or log out verification
+  include './commonphp/checklogin.php';
 
-	//file containing all functions related with the database
-	include './dataAcces/dataAcces.php';
-	//file that contains the common code to pages, menu.
-	include './commonhtml/htmlwritter.php';
-	//check if the user logs in
-	include './commonphp/checklogin.php';
+  if($datavideo = getdatavideo($_GET['watch'])){
+    $row = pg_fetch_array($datavideo);
+  }
+  
 
-	/**
-	*
-	* This functios write the coments in the selected format
-	*
-	*@return echoes the coments
-	*
-	**/
-	function writecomment($user,$coment){
-		echo '<div class="comment">
-		  <h5><b>'.htmlspecialchars($user).' Says:</b></h5>
-		  <p style="text-indent:40px;text-align:justify">'.htmlspecialchars($coment).'</p>
-		</div>';
-	}
 
 ?>
 
+<DOCTYPE html>
+
+	<!-- template for videocollector -->
+
 <html>
-<head>
+	<head>
+		<meta charset="utf-8">
+		<title>Video Collector</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    	<!--jquerry-->
-	<script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"> </script>
 
+		<!--jquerry-->
+	<script type="text/javascript" src="jquery/jquery-1.11.1.min.js"> </script>
 	<!--Your good friend bootstrap-->
-    <script type="text/javascript" src="./bootstrap-3.3.2-dist/js/bootstrap.min.js"> </script>
-	<link rel="stylesheet" type="text/css" href="./bootstrap-3.3.2-dist/css/bootstrap.min.css">
-
-
-    <link rel="stylesheet" type="text/css" href="./css/principal.css">
-    <link rel="stylesheet" type="text/css" href="./css/watchvideo.css">
-    <script type="text/javascript" src="./javascript/principal.js"> </script>
+	<script type="text/javascript" src="bootstrap-3.3.4-dist/js/bootstrap.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.4-dist/css/bootstrap.css">
+    <script type="text/javascript" src="javascript/principal.js"> </script>
     <script type="text/javascript" src="./javascript/watchvideo.js"> </script>
-    
+
+		<link rel="stylesheet" href="css/style.css">
+		<!--[if it IE 9]>
+		<script src="js/html5shim.js"></script>
+		<![endif] -->
+	</head>
+
+	<body>
+
+		<header>
+
+  <!-- Menu bar, brand, search and links log in sign up -->
+      <nav class="navbar navbar-default">
+          <div class="container-fluid">
+              <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.php"><img class="logo"src="images/logo-nav.png"/></a>
+            </div>
+
+            <!-- /.navbar-collapse -->
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav">
+                <li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
+                <li><a href="about.php">About</a></li>
+                <!-- <li><a href="#">Contact</a></li> -->
+                </ul>
+                  <form class="navbar-form navbar-left" role="search" action = "explore.php" method = "get">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                  </div>
+                  <button type="submit" class="btn btn-info">Submit</button>
+                  </form>
+
+                    <div class="nav navbar-nav navbar-right">
+
+                    <ul class="nav navbar-nav navLogIn">
+
+                            <?php if(isset($_SESSION['name'])){ ?>  <!-- if its logged in  -->
+                            <li><a>Welcome <?php echo $_SESSION['name']; ?></a></li> <!-- ser -->
+                            <li>
+                              <form action = "index.php" method="get">
+                              <input type="hidden" name="logout" value="true" />
+                              <button class = "btn btn-info navSignUp" role="button" type="submit">Log Out</button>
+                              </form>
+                            </li> <!-- ser -->
+                            <?php }else{ ?>                           <!-- if its not logged -->
+                    <li><a href="#" data-target="#logIn" data-toggle="modal">Log In</a></li> <!-- Opens log in modal -->
+                      <!-- Opens sign up modal-->
+              <li><button class="btn btn-info navSignUp" role="button" data-target="#signUp" data-toggle="modal">Sign Up
+              </button> </li>
+              <?php } ?>
+
+              </ul>
+          
+              </div>
+                
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+      </nav>
+  <!-- End of menu bar, brand, search and links log in sign up -->
 
 
-	<!-- need for the mediaelementjs-->
-	<code>
-    <script src="./mediaelement/build/mediaelement-and-player.min.js"></script>
-    <link rel="stylesheet" href="./mediaelement/build/mediaelementplayer.css" /></code>
+      <!--***************** Modal Log In****************** -->
+                <div class="modal fade" id="logIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                       <h2>Welcome!</h2>
+                      </div>
 
-	<title>"Video Colector"</title>
-</head>
-<body>
+                      <div class="modal-body">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-	<?php
-    if(isset($_SESSION['name'])){
-    	write_loged_user_msg();
-    }else{
-    	write_login_sigin();	
-    }
-    ?>
+                              <form action = "watchvideo.php"  method = "post"> <!-- Login form -->
+                          
+                              <div class="form-group">
+                              <label for="input_email">Email address</label>
+                              <input type="email" class="form-control" id="input_email" placeholder="Enter email" name="acuseremail">
+                            </div>
+                            <div class="form-group">
+                              <label for="InputPassword">Password</label>
+                              <input type="password" class="form-control" id="InputPassword" placeholder="Password" name="acpassword">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                          </form>
 
+                        </div>
 
-	<div id="principal" class="panel panel-default">	
-		<?php
-			write_title(); //this puts the top navbar
-		?>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          ...
+                        </div>
 
-		<div id= "content" class="panel-body">
-		
-			<div id="videoscontainer">
+                      </div>
+                    </div>
 
+                      </div>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+        <!--************************ Ends Modal ****************-->
 
-				<?php
-					$data_video = getdatavideo($_GET['watch']);
+        <!--***************** Modal sign up****************** -->
+                
+                <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                       <h2>Sign Up, its free and easy</h2>
+                      </div>
 
-					if($row = pg_fetch_array($data_video)){
-						echo '<div id="bestvideo" value = "'.$_GET['watch'].'">
-							<video id="thebestvideo" 
-								poster="./thumbnail/large/'.$_GET['watch'].'.png"
-								controls="controls" preload="none"
-								
-							>';
-							$put_original = false;
-							if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '<source type="video/mp4" src="./video/mp4/'.$_GET['watch'].'.mp4"/>';
-							else $put_original = true;
-							if(file_exists('./video/webm/'.$_GET['watch'].'.webm')) echo '<source type="video/webm" src="./video/webm/'.$_GET['watch'].'.webm"/>';
-							else $put_original = true;
-							if(file_exists('./video/ogv/'.$_GET['watch'].'.ogv')) echo '<source type="video/ogg" src="./video/ogv/'.$_GET['watch'].'.ogv"/>';
-							else $put_original = true;
-							if($put_original)echo '<source src="./video/'.$_GET['watch'].'.'.$row['videotype'].'" type="video/'.$row['videotype'].'"/>';
+                      <div class="modal-body">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-							echo '<object type="application/x-shockwave-flash" data="./mediaelement/build/flashmediaelement.swf">
-                                    <param name="movie" value="./mediaelement/build/flashmediaelement.swf" />
-                                    <param name="flashvars" value="controls=true&file=';
-                                   if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '/video/mp4/'.$_GET['watch'].'.mp4';
-                                   else if($_GET['videotype'] == mp4) echo './video/'.$_GET['watch'].'.mp4';
-                                   else echo 'none'; 
-                                    echo '" />
-                                    <img src="./thumbnail/large/'.$_GET['watch'].'.png" title="No video playback capabilities" />
-                                  </object>';
+                              <form action = "index.php" method = "post"> <!-- sign Up form -->
+                            <div class="form-group">
+                              <label for="user_name">User name</label>
+                              <input type="text" class="form-control" id="user_name" placeholder="Enter user name" name = "unusername">
+                              </div>
+                              <div class="form-group">
+                              <label for="input_email">Email address</label>
+                              <input type="email" class="form-control" id="input_email" placeholder="Enter email" name = "unuseremail">
+                            </div>
+                            <div class="form-group">
+                              <label for="InputPassword">Password</label>
+                              <input type="password" class="form-control" id="InputPassword" placeholder="Password" name = "unpassword">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                          </form>
 
-							echo'</video>';
-							if($put_original){
-								echo '<div id="alert" class="alert alert-danger">This video is still been converted to other formats, so you may 
-								      have some problems watching it</div>';
-							}else{
-								$cbtnup = "btn btn-default";
-								$cbtndown = "btn btn-default";
-								$checkok = false;
-								if(isset($_SESSION['usrid'])){
-									$check = checkvote($_GET['watch'],$_SESSION['usrid']);
-									if($row2 = pg_fetch_array($check)){
-										$checkok = true;
-										$prevvote = ($row2['vote'] == 't')?true:false;
-									}
-									if($checkok && $prevvote){
-										$cbtnup = "btn btn-success"; //button up bootstrap class
-									}else if($checkok && !$prevvote){
-										$cbtndown = "btn btn-danger"; //button down bootstrap class
-									}
-								}
-								
-								echo '<div id = appreciation class="well well-sm">
+                        </div>
 
-								   <div class = "btn-toolbar" role="toolbar">
-								   How was the video?
-								   <button id = "upvote" type="button" class="'.$cbtnup.'">
-								    Good <span class="glyphicon glyphicon-thumbs-up"> </span>
-								   </button>
-								   <span id="upnumber">'.$row['upvotes'].'</span>
-									 
-								   <button id = "downvote" type="button" class="'.$cbtndown.'">
-								     Bad <span class="glyphicon glyphicon-thumbs-down"> </span>
-								   </button>
-								   <span id = "downnumber">'.$row['downvotes'].'</span>
-								   </div>
-								   <p id="alert" class="bg-danger" style = "display:none;"><br>you need to Sign in before you vote<br><br></p>
-								   </div>';
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          ...
+                        </div>
 
+                      </div>
+                    </div>
 
-							}
-							
-						//video name and description part
-						echo '<div class="panel panel-info">';
-						echo '<div id="headingname" class="panel-heading">';
-						echo '<h3>'.htmlspecialchars($row['videoname']).'</h3>';
-						echo '<span id="rolldescription" class="glyphicon glyphicon-collapse-down"> </span>';
-						echo '</div>'; //end of panel heading
-						echo '<div id= descripcion style="display:none;"><br>
-                                '.htmlspecialchars($row['description']).'
-						      <br></div>';	
-						echo '</div></div>'; //end of panel panel-default
+                      </div>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+      <!--********************** Ends Modal *******************-->
+    </header> <!-- header section end -->
 
-						//coments part
+      <main role="main">
+        <div class="jumbotron"> 
+          <div class="container">
+            <div class="row"> 
 
-						echo '<div id = "commentlist">';
+              <div class="col-md-9">
+                <div class="video_port"> <!-- title, author and video -->
 
-						echo   '<div id = "postcomment">
-								  <INPUT id="commenttext" type="text" name="search" style="width:80%">
-								  <button id="post" type="button" class="btn btn-default">
-								  	Post Comment <span class="glyphicon glyphicon-comment"></span>
-								  </button>
-								  <p id="alert-comment" class="bg-danger" style = "display:none;"><br>you need to Sign in before you post a comment<br><br></p>
-						        </div>';
+                  <div class="video_name"> <!-- name of the video -->
+                  <h1><?php echo $row['videoname']; ?></h1>
+                  </div>
 
-						echo    '<div id = "commentpart">';
-									$comments = getcomments(20,$_GET['watch']);
-						 	    	while($row3=pg_fetch_array($comments)){
-						 	    		writecomment($row3['username'],$row3['coment']);
-						 	    	}
+                  <div class="video_author"> <!-- author of the video -->
+                  <p><?php echo $row['username']; ?></p>
+                  </div>
 
-						echo     '</div>';
-						echo  '</div>';
+                  <div id= "video_watch" class="video_watch" value = <?php echo '"'.$_GET['watch'].'"'; ?> > <!-- principal video, value is for the javascript-->
+                    <div class="embed-responsive embed-responsive-16by9">
+                    <video class="embed-responsive-item" class="video" controls="controls" preload="none" 
+                           poster=<?php echo '"./thumbnail/large/'.$_GET['watch'].'.png"'; ?> > 
+                           <?php
+                           $put_original = false; #to know if every video was loaded
+                           if(file_exists('./video/mp4/'.$_GET['watch'].'.mp4'))echo '<source type="video/mp4" src="./video/mp4/'.$_GET['watch'].'.mp4"/>';
+                           else $put_original = true;
+                           if(file_exists('./video/webm/'.$_GET['watch'].'.webm')) echo '<source type="video/webm" src="./video/webm/'.$_GET['watch'].'.webm"/>';
+                           else $put_original = true;
+                           if(file_exists('./video/ogv/'.$_GET['watch'].'.ogv')) echo '<source type="video/ogg" src="./video/ogv/'.$_GET['watch'].'.ogv"/>';
+                           else $put_original = true;
+                           if($put_original)echo '<source src="./video/'.$_GET['watch'].'.'.$row['videotype'].'" type="video/'.$row['videotype'].'"/>';
+                          ?>
+                    </video>
+                    </div>
+                  </div>
 
-					}
-
-					
-
-				?>
-				
-				
-
-			</div>
-		</div>
-	</div>
-
-	<?php
-	write_bottompanel();
-	?>
-
-</body>
+                </div>
 
 
-</html>
+              </div>
+              <div class="col-md-3">
+
+                <div class="related"> <!-- dark section for likes, description-->
+                  
+                  <div class = "toolbar" role="toolbar">
+                  How was the video? <br>
+                  <!-- like-->
+                  <button id = "upvote" type="button" class="btn btn-success">
+                  Good <span class="glyphicon glyphicon-thumbs-up"> </span>
+                  </button>
+                  <span id="upnumber"><?php echo $row['upvotes']; ?></span>
+                  <!--No like-->
+                  <button id = "downvote" type="button" class="btn btn-danger">
+                     Bad <span class="glyphicon glyphicon-thumbs-down"> </span>
+                  </button>
+                  <span id = "downnumber"><?php echo $row['downvotes']; ?></span>
+
+                  </div>
+
+                   <!-- alert -->
+                  <p id="alert" class="bg-danger" style = "display:none;"><br>You need to Sign in before you vote<br><br></p>
+                  </div>
+
+                  <div class="description">  
+                  <h3>Description</h3> <!-- description of the video -->
+                  <p> <?php echo htmlspecialchars($row['description']);?><p>
+                  </div>
+
+                   <div class="description">
+                    <h3>Where?</h3> <!-- place of the video -->
+                   <p><?php echo htmlspecialchars($row['location']) ?></p>
+                  </div>                   
+              </div>
+            </div>
+          </div>
+        </main>
+       
+
+
+        <div class="container">
+          <div class="row">         
+            <div class="col-xs-12 col-sm-12 col-md-9"> 
+              <div class="upload  hidden-md hidden-lg"> 
+              <!-- bottom appears only for small devices --> 
+              <a class="btn btn-primary btn-lg customise"></h2>Explore more videos!</h2></a>
+              </div>
+
+
+              <!-- comment section --> 
+              <div id = "commentlist"> 
+                <!-- area to write comments--> 
+                <div id = "postcomment">
+                  <p> What do you think? Write a commment</p>
+                  <textarea class="input-lg col-xs-12 col-sm-12 col-md-12" id="commenttext" type="text" name="search" rows="2" > </textarea>
+                  <button id="post" type="button" class="btn btn-info">Post Comment <span class="glyphicon glyphicon-comment"></span>
+                  </button>
+                  <p id="alert-comment" class="bg-danger" style = "display:none;"><br>you need to Sign in before you post a comment<br><br></p>
+                </div>
+
+                <div id = "commentpart">
+                  <?php $comments = getcomments(20, $_GET['watch']);
+                    while($commentrow = pg_fetch_array($comments)){?>
+                      <div class="comment">
+                        <h5><b><?php echo htmlspecialchars($commentrow['username']); ?> Says:</b></h5>
+                        <p style="text-indent:40px;text-align:justify"><?php echo htmlspecialchars($commentrow['coment']); ?></p>
+                      </div>
+                    <?php } //end of while?>
+
+                </div>
+              </div> 
+            </div>
+
+            <div class="col-md-3">
+              <!-- more videos related maybe--> 
+              <div class="aside_description hidden-xs hidden-sm "> 
+                <h3>More cool videos</h3>
+              </div> 
+              <div class="aside_description hidden-xs hidden-sm"> 
+                <div class="row">
+
+                 <?php $bestv = searchBestRated(0, 4);
+                 while($rowBest = pg_fetch_array($bestv)){ ?>
+                  <div class="video_thumbnail">
+                    <a href=./watchvideo.php?watch=<?php echo $rowBest['idvideo']; ?> > <!--url of video-->
+                    <img src= <?php echo '"./thumbnail/little/'.$rowBest['idvideo'].'.png"'; ?> /> <!--thumbnail of video-->
+                        <div class="description_video"> <!--description of video-->
+                          <p><?php echo htmlspecialchars($rowBest['videoname']); ?></p>
+                          <div class="video_author"> <!--author of video-->
+                          <p>by <?php echo htmlspecialchars($rowBest['username']); ?><p/>
+                          </div>
+                       <!--description of video-->
+                        </div>
+                    </a>
+                  </div>
+                  <?php  } //end of while?>
+
+            </div>
+          
+            </div>
+
+            </div>
+
+
+
+
+
+          </div>
+    </div>
+
+
+
+
+
+    <footer>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-xs-12 col-sm-8 col-md-8">
+             
+            <div class="logo-foot"></div>
+            <h1 style = "color: #999">Video Colector</h1>
+
+
+            <p style = "color: #999">Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an</p>
+          
+
+          </div>
+
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <a href="https://www.facebook.com/videocollector" ><img src="images/facebook.png"/></a>
+            <a href="https://www.twitter.com/videocollector" ><img src="images/twitter.png"/></a>
+          <h1>You like it?</h1>
+          <p>We need some feedback</p>
+
+          </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <p style="font-size:10px; text-align:center;  margin-bottom:-20px">The site is not responsible for the content that the users upload</p> 
+            </div>
+          </div>
+
+        
+
+      </div>
+      </footer>

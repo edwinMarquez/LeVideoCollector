@@ -59,7 +59,7 @@
 		$realpass = pg_escape_string($pass);
 		global $salt;
 		$thepassword = md5($realpass.$salt);
-		$query = "SELECT idUsuario, UserName, avatar FROM Usuario WHERE UserEmail = '".$realusemail."' and pass = '".$thepassword."';";
+		$query = "SELECT idUsuario, UserName FROM Usuario WHERE UserEmail = '".$realusemail."' and pass = '".$thepassword."';";
 		$link = createConection();
 		$result = pg_exec($link, $query);
 		closeConection($link);
@@ -98,7 +98,8 @@
 	**/
 	function getdatavideo($videoid){
 		$id = pg_escape_string($videoid);
-		$query = "SELECT videoName, upvotes, downvotes, Description, idUsuario, VideoType FROM video WHERE idVideo = '".$id."';";
+        $query = "SELECT u.username, v.location, v.videoname, v.upvotes, v.downvotes, v.description, v.idusuario, v.videotype  
+                  FROM video v inner join usuario u on u.idusuario = v.idusuario WHERE v.idVideo = '".$id."';";
 		$link = createConection();
 		$result = pg_exec($link, $query);
 		closeConection($link);
@@ -167,6 +168,7 @@
 	* @return pg_result 
 	* 
 	**/
+    /**  not in use, in this implementation of the site
 	function allvideos($pagenum){
 		global $numofVideos;
 		$realpagenum = pg_escape_string($pagenum);
@@ -176,7 +178,7 @@
         closeConection($link);
 		return $result;
 	}
-
+    **/ 
 
 	//inserting information in the database
 
@@ -193,11 +195,12 @@
 	* @return true or false
 	*
 	**/
-	function insertvideo($idVideo,$VideoName,$Description,$idUsuario,$VideoType,$UpDate){
+	function insertvideo($idVideo,$VideoName,$Description,$idUsuario,$VideoType,$UpDate, $videolocation){
 		$link = createConection();
 		$realVideoName = pg_escape_string($VideoName);
 		$realDescription = pg_escape_string($Description);
-		$query = 'INSERT into video (idVideo, VideoName,upvotes, downvotes, Description,idUsuario,VideoType,warnings,UpDate) values (\''.$idVideo.'\',\''.$realVideoName.'\',0,0,\''.$realDescription.'\',\''.$idUsuario.'\',\''.$VideoType.'\',0,\''.$UpDate.'\')';
+        $realLocation = pg_escape_string($videolocation);
+		$query = 'INSERT into video (idVideo, VideoName,upvotes, downvotes, Description,idUsuario,VideoType,UpDate,location) values (\''.$idVideo.'\',\''.$realVideoName.'\',0,0,\''.$realDescription.'\',\''.$idUsuario.'\',\''.$VideoType.'\',\''.$UpDate.'\',\''.$realLocation.'\')';
 		$result = pg_exec($link,$query);
         closeConection($link);
 		return $result;
@@ -216,6 +219,9 @@
     	$realpage = pg_escape_string($page);
     	$link = createConection();
         $query = 'SELECT * FROM video ORDER BY UpDate Desc Limit '.$numofVideos.' OFFSET '.$realpage * $numofVideos;
+        $query = 'SELECT u.username, v.idvideo, v.videoname, v.upvotes, v.downvotes, v.description, v.idusuario, v.videotype  
+                  FROM video v inner join usuario u on u.idusuario = v.idusuario ORDER BY UpDate Desc Limit '.$numofVideos.' 
+                  OFFSET '.$realpage*$numofVideos;
         $result = pg_exec($link,$query);
         closeConection($link);
         return $result;
@@ -229,11 +235,13 @@
     *@return mysqli_result
     *
     **/
-    function searchBestRated($page){
-    	global $numofVideos;
+    function searchBestRated($page, $numofVideos){
+    	//global $numofVideos;
     	$realpage = pg_escape_string($page);
     	$link = createConection();
-        $query = 'SELECT * FROM video ORDER BY upvotes Desc Limit '.$numofVideos.' OFFSET '.$realpage*$numofVideos;
+        $query = 'SELECT u.username, v.idvideo, v.videoname, v.upvotes, v.downvotes, v.description, v.idusuario, v.videotype  
+                  FROM video v inner join usuario u on u.idusuario = v.idusuario ORDER BY upvotes Desc Limit '.$numofVideos.' 
+                  OFFSET '.$realpage*$numofVideos;
         $result = pg_exec($link,$query);
         closeConection($link);
         return $result;
@@ -264,7 +272,7 @@
     	$realstring = pg_escape_string($string);
     	$realpage = pg_escape_string($page);
     	$link = createConection();
-    	$query = "SELECT * FROM video where VideoName like '%".$realstring."%' ORDER BY VideoName Limit ".$numofVideos." OFFSET ".$realpage*$numofVideos.";";
+    	$query = "SELECT * FROM video where VideoName ilike '%".$realstring."%' ORDER BY VideoName Limit ".$numofVideos." OFFSET ".$realpage*$numofVideos.";";
     	$result = pg_exec($link,$query);
     	closeConection($link);
     	return $result;
@@ -453,7 +461,7 @@
     	$realidusr = pg_escape_string($idusr);
     	$realidvideo = pg_escape_string($idvideo);
     	$realcomment = pg_escape_string($comment);
-    	$query = "INSERT into coments(coment, idusuario, idvideo,warnings,codate) values('".$realcomment."', '".$realidusr."', '".$realidvideo."', '0', '".$date."' );";
+    	$query = "INSERT into coments(coment, idusuario, idvideo,codate) values('".$realcomment."', '".$realidusr."', '".$realidvideo."', '".$date."' );";
     	$link = createConection();
     	if(pg_exec($link,$query)){
     		return true;
@@ -479,6 +487,5 @@
     	closeConection($link);
     	return $result;
     }
-
 
 ?>

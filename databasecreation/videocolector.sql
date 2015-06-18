@@ -7,7 +7,6 @@ CREATE TABLE coments (
   coment text NOT NULL,
   idUsuario integer NOT NULL,
   idVideo integer NOT NULL,
-  warnings integer NULL,
   codate date NOT NULL,
   PRIMARY KEY (idComent)
 );
@@ -18,7 +17,6 @@ CREATE TABLE Usuario (
   idUsuario SERIAL NOT NULL,
   UserName text NOT NULL,
   UserEmail text NOT NULL,
-  avatar text NULL,
   pass text NOT NULL,
   PRIMARY KEY (idUsuario)
 );
@@ -30,10 +28,10 @@ CREATE TABLE video
   videoname text NOT NULL,
   upvotes integer NOT NULL,
   downvotes integer NOT NULL,
-  description text NOT NULL,
+  description text NULL,
   idusuario integer NOT NULL,
   videotype text NOT NULL,
-  warnings integer NOT NULL,
+  location text NULL, 
   update date NOT NULL,
   CONSTRAINT video_pkey PRIMARY KEY (idvideo),
   CONSTRAINT fk_usuario_video FOREIGN KEY (idusuario)
@@ -54,8 +52,4 @@ CREATE TABLE votexuser
     REFERENCES video (idvideo) MATCH SIMPLE
 
 );
-
-ALTER TABLE coments
-  ADD CONSTRAINT fk_usuario_coment FOREIGN KEY (idUsuario) REFERENCES video (idUsuario),
-  ADD CONSTRAINT fk_video_coment FOREIGN KEY (idVideo) REFERENCES video (idVideo);
 

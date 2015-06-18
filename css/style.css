@@ -1,0 +1,660 @@
+
+body{
+background:#DEE1B6;
+}
+
+
+.logo{
+	width: 50px;
+	height: 48px;
+	margin-top: -15px;
+}
+
+.logOut {
+	margin-bottom: -5px;
+}
+
+
+#alert {
+	margin-top: 5px;
+	font-size: 13px;
+	color: #fff;
+	padding:-15px 10px;
+	background: #FF4D4D;
+}
+
+.jumbotron {
+	
+	background:#373B44;
+
+}
+
+#jumbotron-home {
+	background-image: linear-gradient(180deg, #6DAA83 0%, #84D1A1 20%, #CAD18B 80%);
+	position:relative;
+}
+
+
+#explore-title h2{
+	line-height: 20px;
+	text-align: center;
+	color:#4B5059;
+
+}
+
+#explore-title h1{
+	line-height: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+
+.logo-jumbotron {
+	background: url(../images/logo.png);
+	width: 200px;
+	height:181px;
+	position:absolute;
+	top:0px;
+	left:30px;
+	z-index:999;
+}
+
+
+	.xs {
+	background: url(../images/logo.png);
+	width: 200px;
+	height:181px;
+	position:relative;
+	margin: -40 auto -10 auto;
+}
+
+.ola {
+	background-image: linear-gradient(180deg, #99FFCC 20%, #73C8A9 100%);
+	position:absolute;
+	bottom:0px;
+	height:160px;
+	width:100%;
+}
+
+.top_ola {
+	width: 100%;
+	height:21px;
+	position:absolute;
+	background: url(../images/ola.png) repeat;
+	top:-21px;
+}
+
+
+.rock02 {
+	background: url(../images/rock02.png) no-repeat;
+	width:124px;
+	height:147px;
+	position:absolute;
+	top:450px;
+	left:80px;
+}
+
+.modal-content{
+	background: #DEE1B6;
+}
+
+
+.modal-header {
+  min-height: 20px;
+  padding: 15px;
+  background: #FA6900;
+  border-radius: 6px 6px 0px 0px;
+  color:#DEE1B6;
+}
+
+.video_name > h1 {
+font-size: 40px;
+color:#73C8A9;
+}
+
+.video_author > p{
+	color:#e7e7e7;
+	font-size: 12px
+}
+
+.look-lg {
+	background: url(../images/look-lg.png);
+	width: 260px;
+	height: 278px;
+	position:  absolute;
+	bottom:0px;
+	right: 40px
+}
+
+.trend {
+	background:#73C8A9;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	position:relative;
+}
+
+.video_thumbnail  a {
+	
+	color:#fff;
+}
+
+.video_thumbnail  a:hover {
+	color:#a8ddca;
+	text-decoration: none;
+}
+
+.video_thumbnail:hover img{
+	margin-top: 10px;
+  border: 0;
+  background: #BD5532;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #813a22;
+  cursor: pointer;
+  padding: 5px ;
+  transition: all .3s linear;
+}
+
+.video_thumbnail:hover .description_video {
+	margin-top: 8px;
+  border: 0;
+  background: #FA6900;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #ae4900;
+  cursor: pointer;
+  padding: 5px  5px 0px 5px;
+  transition: all .5s ease,;
+}
+
+
+.trend .video_thumbnail {
+margin-top: -20px;
+}
+
+.video_thumbnail {
+	width: 170px;
+	height: 225px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.video_thumbnail img{
+	margin-top: 10px;
+  border: 0;
+  background: #373B44;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #202328;
+  cursor: pointer;
+  padding: 5px ;
+  
+}
+
+.description_video {
+	margin-top: 8px;
+  border: 0;
+  background: #3c9977;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #26624c;
+  cursor: pointer;
+  padding: 5px  5px 0px 5px;
+  
+}
+
+.video_author p{
+font-size: 10px;
+margin-top: -10px
+}
+
+/*.seagul {
+	width: 300px;
+	height: 400px;
+	background: url(../images/seagul.png) repeat;
+	display: block;
+	position:absolute;
+	left:50px;
+	top:20px;
+
+}
+*/
+
+.related{
+	color: #DEE1B6;
+	margin-top: 40px;
+}
+
+
+/*
+.pagination li {
+	display: block;
+} */
+
+footer{
+	background-color:#333; 
+	color:#eee;
+	padding-top: 40px;
+	margin-top: 0px;
+	padding-bottom: 50px;
+}
+
+
+.logo-foot{
+	background: url( ../images/logo-foot.png) 0 0 no-repeat; 
+	height:177px;
+	width: 198px;
+	float:left;
+}
+
+footer:focus .logo-foot,
+footer:hover .logo-foot {
+	background-position: 0 -177px;
+}
+
+footer img{
+	
+
+}
+
+.image_right {
+	float:right;
+	text-align:  right;
+}
+
+.image_right img {
+	padding-left: 20px;
+}
+
+.image_left {
+	float:left;
+	text-align: left;
+}
+
+.image_left img{
+	padding-right: 15px;
+}
+
+
+
+
+
+/********************************
+.caption{
+	margin-top: -40px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+	background: #000;
+	opacity: 0.6; 
+}
+*****************************/
+
+.video_port{
+	margin-top: -50px;
+}
+
+.video_watch {
+	background:#333;
+	padding:5px;
+	border-radius: 5px;
+}
+
+
+
+.description {
+	background: #333;
+	-webkit-border-radius: 5px;
+ 	-moz-border-radius:5px;
+  	border-radius: 5px;
+  	color: #DEE1B6;
+  	padding: 10px;
+  	margin-top: 10px;
+}
+
+.description h3{
+	font-size: 15px;
+}
+
+.description p{
+	font-size: 12px;
+}
+
+
+
+.aside_description {
+	background: #43ab85;
+	-webkit-border-radius: 5px;
+ 	-moz-border-radius:5px;
+  	border-radius: 5px 5px 0px 0px;
+  	color: #DEE1B6;
+  	padding: 2px;
+  	margin-top: 10px;
+}
+
+.pagination > li > a {
+	background: #373B44;
+	color: #73C8A9;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: #DEE1B6;
+  background: #373B44;
+  border-color: #ddd;
+}
+
+.explore {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+.aside_description + .aside_description {
+	margin-top: 3px;
+	background: #73C8A9;
+}
+
+.aside_description h3{
+	font-size: 20px;
+	text-align: center;
+}
+
+
+
+.upload {
+	text-align:center;
+	padding-top:10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+
+.info{
+	margin-top: 50px;
+	color:#59606e;
+	margin-bottom: 50px;
+	
+}
+
+
+
+.info h1{
+	font-size: 45px;
+	font-weight: 200;
+	color:#8c8f7f; 
+	padding-top:50px;
+}
+
+.blue{
+color:#376db3;
+}
+
+.yellow{
+	color:#deb900;
+}
+
+.navbar-toggle {
+	background-color: #73C8A9;
+}
+
+.icon-bar {
+	background-color: #DEE1B6
+}
+
+.navbar-collapse{
+	border:#E1B866;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color:#fff;
+}
+
+
+.logInForm {
+	padding:5px;
+	width: 250px;
+	background: #E0E4CC;
+	font-family: Helvetica, sans-serif;
+}
+
+.logInForm label{
+	color:#BD5532;
+}
+
+label {
+	color:#BD5532;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 2px;
+ margin-top: 10px;
+}
+
+.navSignUp {
+	margin-top: 5px;
+	padding: 10px;
+	font-weight: bold;
+}
+
+textarea {
+  resize: vertical; 
+  -webkit-border-radius: 0px;
+  	-moz-border-radius:0px;
+  	border-radius: 0px;
+  	border:1px solid #73C8A9;
+ }
+
+.upload .btn {
+	margin-top: 10px;
+  border: 0;
+  background: #FA6900;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #993300;
+  color: #fff;
+  cursor: pointer;
+  outline: 0;
+  padding: 12px 50px;
+  transition: all .1s linear;
+  margin-left:5px;
+  margin-right:5px;
+} 
+
+#blue {
+  background: #0087cc;
+   box-shadow: 0 5px 0 #006599;
+}
+
+#blue:active {
+  box-shadow: 0 2px 0 #006599;
+  transform: translateY(3px);
+}
+
+
+.upload .btn:active{
+	 box-shadow: 0 2px 0 #993300;
+  transform: translateY(3px);
+}
+
+
+
+#postcomment button {
+	margin-top: 10px;
+  border: 0;
+  background: #0087cc;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #006599;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+
+  outline: 0;
+  padding: 12px 20px;
+  transition: all .1s linear;
+}
+
+#postcomment button:active {
+  box-shadow: 0 2px 0 #006599;
+  transform: translateY(3px);
+}
+
+
+#commentlist {
+	background:#eef0da;
+	padding:10px;
+	margin-top: 5px;
+
+
+}
+
+
+.description_video:nth-last-child(2) {
+	background: orange;
+
+}
+
+.comment + .comment{
+	
+	border-top: 1px solid #fff;
+
+}
+
+.comment:last-of-type{
+	border-bottom: 0px;
+}
+
+.comment {
+	padding: 20px;
+	border-bottom: 1px solid #d5daa4;
+	font-family: Helvetica;
+	color:#444;
+}
+
+.comment h5 {
+	color:#BD5532;
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+
+
+
+    .seagul {
+	width: 402px;
+	height: 513px;
+	background: url(../images/seagul.png) repeat;
+	display: block;
+	position:absolute;
+	left:40px;
+	top:10px;
+	z-index:3;
+	}
+}
+
+
+
+
+/* ----------------for more little colapse ---------------*/
+@media (max-width: 767px) {
+  .visible-xs-inline {
+    display: inline !important;
+  }
+
+
+  	.video_port{
+	margin-top: 0px;
+}
+   	.xs {
+	background: url(../images/logo.png);
+	width: 200px;
+	height:181px;
+	position:relative;
+	margin: 0 auto -10 auto;
+}
+
+
+.related{
+  	margin-top: 5px;
+  }
+
+}
+
+
+/* ----------------second more little colapse ---------------*/
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+	  .seagul {
+	width: 125px;
+	height: 196px;
+	background: url(../images/egg.png) ;
+	position:absolute;
+	left:-100px;
+	top:300px;
+	z-index: 3;
+	}
+
+		.rock02 {
+	background: url(../images/rock01.png) no-repeat;
+	width:203px;
+	height:147px;
+	position:absolute;
+	top:440px;
+	left:-130px;
+    }
+
+  .related{
+  	margin-top: 5px;
+  }
+
+  .video_thumbnail {
+	margin-top: 0px;
+  }
+
+ }
+
+
+/*------for the third colapse, with de baby seagul----------------*/
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+	.seagul { /* THE EGG SEAGUL*/
+	width: 274px;
+	height: 434px;
+	background: url(../images/egg-seagul.png) repeat;
+	display: block;
+	position:absolute;
+	left: 65px;
+	top:40px;
+	}
+
+	.logo-jumbotron {
+	background: url(../images/logo.png);
+	width: 200px;
+	height:181px;
+	position:absolute;
+	top:-20px;
+	left:30px;
+	z-index:999;
+    }
+
+
+	.rock02 {
+	background: url(../images/rock01.png) no-repeat;
+	width:203px;
+	height:147px;
+	position:absolute;
+	top:400px;
+	left:110px;
+    }
+
+	.related{
+  	margin-top: 56px;
+    }
+  }
+
+  @media (min-width: 1199px) {
+
+  }
