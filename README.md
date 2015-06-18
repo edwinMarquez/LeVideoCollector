@@ -18,11 +18,13 @@ Requirements:<br>
 -----
 Inner working: <br>
 
+When a video is uploaded, it is converted to mp4, ogg and webm formats at a standard resolution using an bash script and the ffmpeg library, so that every video can be seen on different browsers. Two images are algo taken for display.<br>
+
 This website uses a database to store information about the users, videos comments and likes. 
-the script and an image of the structure is included in the folder “databasecreation”.
+the script and is included in the folder “databasecreation”.<br>
 
-In the folder “dataAcces” you can find a file called: “configs.php” that contains configuration values like the password of your database, user name of the database, etc. there are comments included in the file. 
+In the folder “dataAcces” you can find a file called: “configs.php” that contains configuration values like the password of your database, user name of the database, etc. there are comments included in the file. <br>
 
-Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.
+Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.<br>
 
  
