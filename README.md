@@ -1,7 +1,8 @@
-Sergio Armando Márquez Hernánde. *( Front End)*  @SergioMrqUz
-Edwin Samuel Márquez Hernández. *( Back End)*  @EdwinMrqz
+#video collector
+Sergio Armando Márquez Hernández. *( Front End)*  @SergioMrqUz <br>
+Edwin Samuel Márquez Hernández. *( Back End)*  @EdwinMrqz <br>
 
-Video Colector.  site: http://104.236.230.191/levideocolector/index.php <br>
+Video Collector.  site: http://104.236.230.191/levideocolector/index.php <br>
 
 ------
 <br>
@@ -17,7 +18,7 @@ Requirements:<br>
 -----
 Inner working: <br>
 
-This website uses a database to store information about the users, videos and comments(still not in use) 
+This website uses a database to store information about the users, videos comments and likes. 
 the script and an image of the structure is included in the folder “databasecreation”.
 
 In the folder “dataAcces” you can find a file called: “configs.php” that contains configuration values like the password of your database, user name of the database, etc. there are comments included in the file. 
