@@ -2,7 +2,7 @@
 Sergio Armando Márquez Hernández. *( Front End)*  @SergioMrqUz <br>
 Edwin Samuel Márquez Hernández. *( Back End)*  @EdwinMrqz <br>
 
-Video Collector.  site: http://104.236.230.191/levideocolector/index.php <br>
+Video Collector.  site: http://levideocollector.com <br>
 
 ------
 <br>
