@@ -14,7 +14,7 @@ Requirements:<br>
 3. ffmpeg library installed and working. (This library is used to take the thumbnails of the videos uploaded and convert them to other formats: mp4, ogv, webm. I'm taking two of different sizes by now, xampp user beware you may have to update some libraries manually to make it work).<br><br>
 4. mediaelement as an html5 player<br> <br>
 
-
+![bloqBreaker 1](/screenshots/levideocollector.png)<br>
 -----
 Inner working: <br>
 
@@ -26,5 +26,8 @@ the script is included in the folder “databasecreation”.<br>
 In the folder “dataAcces” you can find a file called: “configs.php” that contains configuration values like the password of your database, user name of the database, etc. there are comments included in the file. <br>
 
 Everything related to interacting directly with the database is included in the other file called “dataAcces.php”.<br>
+
+![bloqBreaker 2](/screenshots/levideocollector_explore.png)<br>
+![bloqBreaker 3](/screenshots/levideocollector_upload.png)<br>
 
  
