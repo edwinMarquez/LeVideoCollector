@@ -222,6 +222,8 @@
                               <source type = "video/mp4" src = "homevideo/videocollector.mp4">
                               <source type = "video/webm" src="homevideo/videocollector.webm" >
                               <source type = "video/ogg" src="homevideo/videocollector.ogg">
+                              <track src="homevideo/home_subtitles" kind="subtitles" srclang="eng" label="English" default>
+                              <p>You'r browser doesn't support html5 video.</p>
 							</video>
 							</div>
 
