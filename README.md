@@ -12,7 +12,6 @@ Requirements:<br>
 1. php (and all it requires to work with, the project is fully written in php). <br> <br>
 2. postgres <br><br>
 3. ffmpeg library installed and working. (This library is used to take the thumbnails of the videos uploaded and convert them to other formats: mp4, ogv, webm. I'm taking two of different sizes by now, xampp user beware you may have to update some libraries manually to make it work).<br><br>
-4. mediaelement as an html5 player<br> <br>
 
 ![bloqBreaker 1](/screenshots/levideocollector.png)<br>
 -----

@@ -481,7 +481,7 @@
     function getcomments($num,$idvideo){
     	$realnum = pg_escape_string($num);
     	$realidvideo = pg_escape_string($idvideo);
-    	$query = "SELECT u.username, c.coment, c.codate from usuario u inner join coments c on u.idusuario = c.idusuario where c.idvideo = ".$realidvideo." ORDER BY c.codate DESC LIMIT ".$realnum.";";
+     	$query = "SELECT u.username, c.coment, c.codate from usuario u inner join coments c on u.idusuario = c.idusuario where c.idvideo = ".$realidvideo." ORDER BY c.codate DESC LIMIT ".$realnum.";";
     	$link = createConection();
     	$result = pg_exec($link, $query);
     	closeConection($link);
