@@ -28,5 +28,3 @@ Everything related to interacting directly with the database is included in the 
 
 ![bloqBreaker 2](/screenshots/levideocollector_explore.png)<br>
 ![bloqBreaker 3](/screenshots/levideocollector_upload.png)<br>
-
- 
